@@ -1,0 +1,21 @@
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Visual Studio Code
+.vscode
+
+### Binary
+docs
+dist
+checkson
+
+### Snap
+snap.login
+
+### logs
+*.log
+/checkson-completion.bash
