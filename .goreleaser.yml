@@ -6,6 +6,7 @@ builds:
       - CGO_ENABLED=0
     ldflags:
       - -s -w -X github.com/stefan-hudelmaier/checkson-cli/cmd.Version={{.Tag}} -X github.com/stefan-hudelmaier/checkson-cli/cmd.GitCommit={{.ShortCommit}} -X github.com/stefan-hudelmaier/checkson-cli/cmd.BuildTime={{.Date}}
+    binary: checkson
     goos:
       - darwin
       - linux
