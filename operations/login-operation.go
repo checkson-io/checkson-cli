@@ -1,6 +1,6 @@
 package operations
 
-import "github.com/huditech/checkson/operations/auth"
+import "github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 
 type LoginOperation struct {
 }

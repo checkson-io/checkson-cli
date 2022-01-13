@@ -1,16 +1,9 @@
-module github.com/huditech/checkson
+module github.com/stefan-hudelmaier/checkson-cli
 
 require (
-	github.com/Shopify/sarama v1.27.0
-	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/golang/snappy v0.0.2 // indirect
-	github.com/google/go-cmp v0.5.2 // indirect
-	github.com/hako/durafmt v0.0.0-20210608085754-5c1018a4e16b // indirect
-	github.com/klauspost/compress v1.11.0 // indirect
 	github.com/magiconair/properties v1.8.4 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.4.0 // indirect

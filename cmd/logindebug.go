@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/huditech/checkson/config"
-	"github.com/huditech/checkson/operations/auth"
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/config"
+	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/spf13/cobra"
 	"io/ioutil"
 	"net/http"

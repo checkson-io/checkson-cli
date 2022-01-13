@@ -3,8 +3,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/huditech/checkson/operations/auth"
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/olekukonko/tablewriter"
 	"io/ioutil"
 	"log"

@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

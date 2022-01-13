@@ -14,8 +14,8 @@
 package main
 
 import (
-	"github.com/huditech/checkson/cmd"
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/cmd"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"os"
 )
 

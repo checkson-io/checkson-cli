@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/huditech/checkson/operations"
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/operations"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/spf13/cobra"
 )
 

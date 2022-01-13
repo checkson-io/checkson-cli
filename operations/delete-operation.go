@@ -2,8 +2,8 @@ package operations
 
 import (
 	"fmt"
-	"github.com/huditech/checkson/operations/auth"
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"net/http"
 )
 

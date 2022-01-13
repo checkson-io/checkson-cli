@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/huditech/checkson/output"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/spf13/cobra"
 )
 

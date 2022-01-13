@@ -2,7 +2,6 @@ package output
 
 import (
 	"bytes"
-	"github.com/Shopify/sarama"
 	"io"
 	"log"
 	"os"
@@ -40,6 +39,5 @@ type IOStreams struct {
 }
 
 func (streams *IOStreams) EnableDebug() {
-	sarama.Logger = log.New(streams.DebugOut, "[sarama  ] ", log.LstdFlags)
 	DebugLogger = log.New(streams.DebugOut, "[checkson] ", log.LstdFlags)
 }
