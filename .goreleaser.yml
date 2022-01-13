@@ -5,7 +5,7 @@ builds:
   - env:
       - CGO_ENABLED=0
     ldflags:
-      - -s -w -X github.com/deviceinsight/contmon/cmd.Version={{.Tag}} -X github.com/deviceinsight/contmon/cmd.GitCommit={{.ShortCommit}} -X github.com/deviceinsight/contmon/cmd.BuildTime={{.Date}}
+      - -s -w -X github.com/stefan-hudelmaier/checkson-cli/cmd.Version={{.Tag}} -X github.com/stefan-hudelmaier/checkson-cli/cmd.GitCommit={{.ShortCommit}} -X github.com/stefan-hudelmaier/checkson-cli/cmd.BuildTime={{.Date}}
     goos:
       - darwin
       - linux
@@ -29,10 +29,9 @@ checksum:
   name_template: 'checksums.txt'
 nfpms:
   - id: default
-    vendor: Device Insight GmbH
-    homepage: https://www.device-insight.com/
-    maintainer: Dirk Wilden <[dirk.wilden@device-insight.com]>
-    description: A command-line interface for interaction with Apache Kafka
+    homepage: https://checkson.io/
+    maintainer: Stefan Hudelmaier <[hudelmaier@gmail.com]>
+    description: A command-line interface for interaction with Checkson
     license: Apache 2.0
 
     formats:
@@ -43,67 +42,67 @@ release:
   disable: false
   draft: false
 
-snapcrafts:
-  - id: default
-    publish: true
-    summary: A command-line interface for interaction with Apache Kafka
-    description: |
-      A Commandline interface for Apache Kafka which provides useful features adapted from kubectl for Kubernetes.
-      Multiple kafka brokers can be configured in a config file and the active broker is also persisted within the config.
-      In addition contmon supports auto-completion for its commands as well as topic names.
-    grade: stable
-    confinement: strict
-    license: Apache-2.0
-    apps:
-      contmon:
-        plugs: ["home", "network", "dot-kube", "config-contmon"]
-        completer: contmon-completion.bash
-    plugs:
-      dot-kube:
-        interface: personal-files
-        read:
-          - $HOME/.kube
-      config-contmon:
-        interface: personal-files
-        write:
-          - $HOME/.config/contmon/config.yml
-brews:
-  -
-    tap:
-      owner: deviceinsight
-      name: homebrew-packages
-
-    commit_author:
-      name: goreleaserbot
-      email: goreleaser@device-insight.com
-
-    folder: Formula
-
-    homepage: https://www.device-insight.com/
-
-    description: |
-      A Commandline interface for Apache Kafka which provides useful features adapted from kubectl for Kubernetes.
-      Multiple kafka brokers can be configured in a config file and the active broker is also persisted within the config.
-      In addition contmon supports auto-completion for its commands as well as topic names.
-
-    skip_upload: false
-
-dockers:
-  -
-    skip_push: false
-    dockerfile: Dockerfile.Ubuntu
-    binaries:
-      - contmon
-    image_templates:
-      - "deviceinsight/contmon:latest-ubuntu"
-      - "deviceinsight/contmon:{{ .Tag }}-ubuntu"
-      - "deviceinsight/contmon:latest"
-      - "deviceinsight/contmon:{{ .Tag }}"
-  -
-    skip_push: false
-    dockerfile: Dockerfile.Scratch
-    binaries:
-      - contmon
-    image_templates:
-      - "deviceinsight/contmon:latest-scratch"
-      - "deviceinsight/contmon:{{ .Tag }}-scratch"
+#snapcrafts:
+#  - id: default
+#    publish: true
+#    summary: A command-line interface for interaction with Apache Kafka
+#    description: |
+#      A Commandline interface for Apache Kafka which provides useful features adapted from kubectl for Kubernetes.
+#      Multiple kafka brokers can be configured in a config file and the active broker is also persisted within the config.
+#      In addition contmon supports auto-completion for its commands as well as topic names.
+#    grade: stable
+#    confinement: strict
+#    license: Apache-2.0
+#    apps:
+#      contmon:
+#        plugs: ["home", "network", "dot-kube", "config-contmon"]
+#        completer: contmon-completion.bash
+#    plugs:
+#      dot-kube:
+#        interface: personal-files
+#        read:
+#          - $HOME/.kube
+#      config-contmon:
+#        interface: personal-files
+#        write:
+#          - $HOME/.config/contmon/config.yml
+#brews:
+#  -
+#    tap:
+#      owner: deviceinsight
+#      name: homebrew-packages
+#
+#    commit_author:
+#      name: goreleaserbot
+#      email: goreleaser@device-insight.com
+#
+#    folder: Formula
+#
+#    homepage: https://www.device-insight.com/
+#
+#    description: |
+#      A Commandline interface for Apache Kafka which provides useful features adapted from kubectl for Kubernetes.
+#      Multiple kafka brokers can be configured in a config file and the active broker is also persisted within the config.
+#     In addition contmon supports auto-completion for its commands as well as topic names.
+#
+#    skip_upload: false
+#
+#dockers:
+#  -
+#    skip_push: false
+#    dockerfile: Dockerfile.Ubuntu
+#    binaries:
+#      - contmon
+#    image_templates:
+#      - "deviceinsight/contmon:latest-ubuntu"
+#      - "deviceinsight/contmon:{{ .Tag }}-ubuntu"
+#      - "deviceinsight/contmon:latest"
+#      - "deviceinsight/contmon:{{ .Tag }}"
+#  -
+#    skip_push: false
+#    dockerfile: Dockerfile.Scratch
+#    binaries:
+#      - contmon
+#    image_templates:
+#      - "deviceinsight/contmon:latest-scratch"
+#      - "deviceinsight/contmon:{{ .Tag }}-scratch"
