@@ -8,6 +8,7 @@ import (
 )
 
 type DeleteCheckFlags struct {
+	DevMode bool
 }
 
 type DeleteCheckOperation struct {
@@ -19,7 +20,7 @@ func (operation *DeleteCheckOperation) DeleteCheckOperation(checkName string, fl
 
 	client := &http.Client{}
 
-	req, err := http.NewRequest("DELETE", "http://127.0.0.1:8080/api/checks/"+checkName, nil)
+	req, err := http.NewRequest("DELETE", getApiUrl(flags.DevMode, "api/checks/")+checkName, nil)
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
 	resp, err := client.Do(req)

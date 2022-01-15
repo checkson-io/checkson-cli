@@ -11,7 +11,7 @@
 ### Binary
 docs
 dist
-checkson
+checkson-cli
 
 ### Snap
 snap.login

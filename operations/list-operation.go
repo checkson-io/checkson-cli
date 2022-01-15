@@ -3,9 +3,9 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"github.com/olekukonko/tablewriter"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,6 +17,7 @@ type ListOperation struct {
 }
 
 type ListOperationFlags struct {
+	DevMode bool
 }
 
 func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
@@ -27,7 +28,7 @@ func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 	}
 
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://127.0.0.1:8080/api/checks", nil)
+	req, err := http.NewRequest("GET", getApiUrl(flags.DevMode, "api/checks"), nil)
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
 	resp, err := client.Do(req)

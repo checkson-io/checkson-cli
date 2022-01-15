@@ -14,13 +14,14 @@ type ShowOperation struct {
 }
 
 type ShowOperationFlags struct {
+	DevMode bool
 }
 
 func (operation *ShowOperation) ShowOperation(checkName string, flags ShowOperationFlags) error {
 	authToken, _ := auth.ReadAuthToken()
 
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://127.0.0.1:8080/api/checks/"+checkName, nil)
+	req, err := http.NewRequest("GET", getApiUrl(flags.DevMode, "api/checks/")+checkName, nil)
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
 	resp, err := client.Do(req)

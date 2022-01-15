@@ -12,6 +12,7 @@ type LogsOperation struct {
 }
 
 type LogsOperationFlags struct {
+	DevMode bool
 }
 
 func (operation *LogsOperation) LogsOperation(checkName string, runId string, flags LogsOperationFlags) error {
@@ -21,9 +22,9 @@ func (operation *LogsOperation) LogsOperation(checkName string, runId string, fl
 		return nil
 	}
 
+	path := fmt.Sprintf("api/checks/%s/runs/%s/log", checkName, runId)
 	client := &http.Client{}
-	url := fmt.Sprintf("http://127.0.0.1:8080/api/checks/%s/runs/%s/log", checkName, runId)
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", getApiUrl(flags.DevMode, path), nil)
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
 	resp, err := client.Do(req)

@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,6 +13,7 @@ import (
 
 var cfgFile string
 var Verbose bool
+var DevMode bool
 
 var envMapping = map[string]string{
 	"REQUESTTIMEOUT": "CONTEXTS_DEFAULT_REQUESTTIMEOUT",
@@ -37,7 +38,6 @@ func NewChecksonCommand(streams output.IOStreams) *cobra.Command {
 	rootCmd.AddCommand(newLoginCmd())
 	rootCmd.AddCommand(newLogoutCmd())
 	rootCmd.AddCommand(newLogsCmd())
-	rootCmd.AddCommand(newLoginDebugCmd())
 	// TODO: Add create-or-update command
 	rootCmd.AddCommand(newCreateCheckCmd())
 	rootCmd.AddCommand(newDeleteCheckCmd())
@@ -46,6 +46,7 @@ func NewChecksonCommand(streams output.IOStreams) *cobra.Command {
 	// use upper-case letters for shorthand params to avoid conflicts with local flags
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config-file", "C", "", fmt.Sprintf("config file. one of: %v", configPaths))
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "V", false, "verbose output")
+	rootCmd.PersistentFlags().Bool("dev-mode", false, "enable dev mode, communicating to local services")
 
 	output.IoStreams = streams
 	rootCmd.SetOut(streams.Out)

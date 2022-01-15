@@ -1,9 +1,9 @@
 package cmd
 
 import (
+	"github.com/spf13/cobra"
 	"github.com/stefan-hudelmaier/checkson-cli/operations"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"github.com/spf13/cobra"
 )
 
 const logsDesc = `
@@ -21,6 +21,10 @@ func newLogsCmd() *cobra.Command {
 		Hidden: false,
 		Args:   cobra.RangeArgs(1, 2),
 		Run: func(cmd *cobra.Command, args []string) {
+
+			devMode, _ := cmd.Flags().GetBool("dev-mode")
+			flags.DevMode = devMode
+
 			var checkName string
 			if len(args) == 1 {
 				checkName = "_last"

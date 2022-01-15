@@ -3,10 +3,10 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/olekukonko/tablewriter"
 	"github.com/pkg/errors"
+	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -18,6 +18,7 @@ type ListRunsOperation struct {
 }
 
 type ListRunsOperationFlags struct {
+	DevMode bool
 }
 
 type Run struct {
@@ -40,7 +41,7 @@ func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFla
 	}
 
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://127.0.0.1:8080/api/runs", nil)
+	req, err := http.NewRequest("GET", getApiUrl(flags.DevMode, "api/runs"), nil)
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
 	resp, err := client.Do(req)

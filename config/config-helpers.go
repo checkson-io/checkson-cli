@@ -6,6 +6,7 @@ import (
 )
 
 func GetConfigPath() string {
+
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)

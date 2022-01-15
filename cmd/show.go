@@ -1,9 +1,9 @@
 package cmd
 
 import (
+	"github.com/spf13/cobra"
 	"github.com/stefan-hudelmaier/checkson-cli/operations"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"github.com/spf13/cobra"
 )
 
 const showDesc = `
@@ -21,6 +21,10 @@ func newShowCheckCmd() *cobra.Command {
 		Hidden: false,
 		Args:   cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
+
+			devMode, _ := cmd.Flags().GetBool("dev-mode")
+			flags.DevMode = devMode
+
 			if err := (&operations.ShowOperation{}).ShowOperation(args[0], flags); err != nil {
 				output.Fail(err)
 			}
