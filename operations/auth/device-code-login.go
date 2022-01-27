@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/pkg/errors"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -21,9 +21,13 @@ type DeviceCodeStatusResult struct {
 	AuthToken string `json:"authToken"`
 }
 
-func DeviceCodeLogin() error {
+func DeviceCodeLogin(devMode bool) error {
 
-	resp, err := http.Get("https://europe-west1-checkson-dc8a5.cloudfunctions.net/createDeviceCode")
+	createDeviceCodeUrl := getCloudFunctionUrl(devMode, "createDeviceCode")
+
+	output.Debugf("Creating device code: %s", createDeviceCodeUrl)
+
+	resp, err := http.Get(createDeviceCodeUrl)
 	if err != nil {
 		panic(err)
 	}
@@ -41,11 +45,12 @@ func DeviceCodeLogin() error {
 		log.Fatalf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())
 	}
 
-	fmt.Println("Go to checkson.io and enter the device code", deviceCodeCreationResult.DeviceCode)
+	// TODO: Use cloud URL if dev mode is false
+	fmt.Printf("Go to http://localhost:3000/signin-device-code?deviceCode=%s\n", deviceCodeCreationResult.DeviceCode)
 
 	for i := 0; i < 20; i++ {
 		time.Sleep(1 * time.Second)
-		deviceCodeCreationResult := checkDeviceCodeStatus(deviceCodeCreationResult.DeviceCode)
+		deviceCodeCreationResult := checkDeviceCodeStatus(devMode, deviceCodeCreationResult.DeviceCode)
 		if deviceCodeCreationResult.Confirmed == true {
 			fmt.Println("Device code has been confirmed, custom auth token is", deviceCodeCreationResult.AuthToken)
 			// TODO: Exchange custom auth token for Firebase token
@@ -57,10 +62,10 @@ func DeviceCodeLogin() error {
 	return errors.New("timeout waiting for login")
 }
 
-func checkDeviceCodeStatus(deviceCode string) DeviceCodeStatusResult {
+func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResult {
 
 	var jsonStr = []byte(fmt.Sprintf(`{"deviceCode":"%s"}`, deviceCode))
-	resp, err := http.Post("https://europe-west1-checkson-dc8a5.cloudfunctions.net/getDeviceCodeStatus", "application/json", bytes.NewBuffer(jsonStr))
+	resp, err := http.Post(getCloudFunctionUrl(devMode, "getDeviceCodeStatus"), "application/json", bytes.NewBuffer(jsonStr))
 
 	if err != nil {
 		panic(err)

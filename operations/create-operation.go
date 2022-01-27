@@ -15,6 +15,7 @@ type CreateCheckFlags struct {
 	DockerImage            string
 	CheckIntervalInMinutes int16
 	DevMode                bool
+	Environment            map[string]string
 }
 
 type CreateCheckOperation struct {
@@ -29,12 +30,13 @@ func (operation *CreateCheckOperation) CreateCheckOperation(checkName string, fl
 		WebHookUrl:             flags.WebHookUrl,
 		DockerImage:            flags.DockerImage,
 		CheckIntervalInMinutes: flags.CheckIntervalInMinutes,
+		Environment:            flags.Environment,
 	}
 
 	client := &http.Client{}
 
 	jsonBytes, jsonErr := json.Marshal(check)
-	fmt.Println("Sending:", string(jsonBytes))
+	output.Debugf("Sending:", string(jsonBytes))
 	if jsonErr != nil {
 		return errors.New("Cannot serialize check")
 	}
