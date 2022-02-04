@@ -88,11 +88,22 @@ func RemovePersistedAuthToken() error {
 
 func getCloudFunctionUrl(devMode bool, function string) string {
 
-	var baseUrl = "https://europe-west1-checkson-dc8a5.cloudfunctions.net"
+	var baseUrl = "https://europe-west1-checkson-cadf1.cloudfunctions.net"
 
 	if devMode {
 		baseUrl = "http://localhost:5001/checkson-cadf1/europe-west1"
 	}
 
 	return fmt.Sprintf("%s/%s", baseUrl, function)
+}
+
+func getUiBaseUrl(devMode bool) string {
+
+	var baseUrl = "https://checkson.io"
+
+	if devMode {
+		baseUrl = "http://localhost:3000"
+	}
+
+	return baseUrl
 }

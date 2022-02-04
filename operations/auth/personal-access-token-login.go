@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/pkg/errors"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -18,7 +18,7 @@ type CustomAuthTokenWrapper struct {
 func PersonalAccessTokenLogin(personalAccessToken string) error {
 
 	var jsonStr = []byte(fmt.Sprintf(`{"personalAccessToken":"%s"}`, personalAccessToken))
-	resp, err := http.Post("https://europe-west1-contmon-dc8a5.cloudfunctions.net/getCustomAuthTokenForPersonalAccessToken", "application/json", bytes.NewBuffer(jsonStr))
+	resp, err := http.Post("https://europe-west1-checkson-cadf1.cloudfunctions.net/getCustomAuthTokenForPersonalAccessToken", "application/json", bytes.NewBuffer(jsonStr))
 	if err != nil {
 		panic(err)
 	}

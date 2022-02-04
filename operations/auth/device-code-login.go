@@ -45,8 +45,7 @@ func DeviceCodeLogin(devMode bool) error {
 		log.Fatalf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())
 	}
 
-	// TODO: Use cloud URL if dev mode is false
-	fmt.Printf("Go to http://localhost:3000/signin-device-code?deviceCode=%s\n", deviceCodeCreationResult.DeviceCode)
+	fmt.Printf("Go to %s/signin-device-code?deviceCode=%s\n", getUiBaseUrl(devMode), deviceCodeCreationResult.DeviceCode)
 
 	for i := 0; i < 20; i++ {
 		time.Sleep(1 * time.Second)
