@@ -51,8 +51,17 @@ func DeviceCodeLogin(devMode bool) error {
 		time.Sleep(1 * time.Second)
 		deviceCodeCreationResult := checkDeviceCodeStatus(devMode, deviceCodeCreationResult.DeviceCode)
 		if deviceCodeCreationResult.Confirmed == true {
-			fmt.Println("Device code has been confirmed, custom auth token is", deviceCodeCreationResult.AuthToken)
-			// TODO: Exchange custom auth token for Firebase token
+			fmt.Println("Device code has been confirmed")
+
+			firebaseAuthToken, exchangeErr := exchangeCustomAuthTokenForFirebaseToken(deviceCodeCreationResult.AuthToken)
+			if exchangeErr != nil {
+				return errors.New("Login failure: Could not exchange custom auth token")
+			}
+
+			persistErr := persistAuthToken(firebaseAuthToken)
+			if persistErr != nil {
+				return persistErr
+			}
 			return nil
 		} else {
 			fmt.Println("Device code has not been confirmed yet, trying again")

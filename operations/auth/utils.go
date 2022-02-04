@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type FirebaseResponse struct {
@@ -22,7 +23,7 @@ func ReadAuthToken() (string, error) {
 	if fileError != nil {
 		return "", fileError
 	}
-	return string(bytes), nil
+	return strings.TrimSpace(string(bytes)), nil
 }
 
 func GetAuthFile() string {
