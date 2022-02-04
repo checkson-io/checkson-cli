@@ -32,7 +32,7 @@ func GetAuthFile() string {
 
 func exchangeCustomAuthTokenForFirebaseToken(customAuthToken string) (string, error) {
 
-	firebaseApiKey := "AIzaSyCl4_SbaVL7T0Zjbxe1NCW-V1nAV0jLTCo"
+	firebaseApiKey := "AIzaSyA7Uc_3kxi2bx9FyBFeho7fdQkyHQG18Gs"
 	var jsonStr = []byte(fmt.Sprintf(`{"token": "%s", "returnSecureToken": "true"}`, customAuthToken))
 	resp, err := http.Post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key="+firebaseApiKey, "application/json", bytes.NewBuffer(jsonStr))
 	if err != nil {
