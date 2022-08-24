@@ -21,11 +21,14 @@ func (operation *DeleteCheckOperation) DeleteCheckOperation(checkName string, fl
 	client := &http.Client{}
 
 	req, err := http.NewRequest("DELETE", getApiUrl(flags.DevMode, "api/checks/")+checkName, nil)
+	if err != nil {
+		return fmt.Errorf("problem preparing request: %w", err)
+	}
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
-	resp, err := client.Do(req)
-	if err != nil {
-		return fmt.Errorf("problem performing request: %w", err)
+	resp, err1 := client.Do(req)
+	if err1 != nil {
+		return fmt.Errorf("problem performing request: %w", err1)
 	}
 	defer resp.Body.Close()
 	output.PrintStrings("Response status:", resp.Status)

@@ -24,12 +24,15 @@ func (operation *LogsOperation) LogsOperation(checkName string, runId string, fl
 
 	path := fmt.Sprintf("api/checks/%s/runs/%s/log", checkName, runId)
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", getApiUrl(flags.DevMode, path), nil)
+	req, err1 := http.NewRequest("GET", getApiUrl(flags.DevMode, path), nil)
+	if err1 != nil {
+		return fmt.Errorf("problem preparing request: %w", err1)
+	}
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
+	resp, err2 := client.Do(req)
+	if err2 != nil {
+		panic(err2)
 	}
 	defer resp.Body.Close()
 	output.Debugf("Response status: %s", resp.Status)

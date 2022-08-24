@@ -50,7 +50,7 @@ func DeviceCodeLogin(devMode bool) error {
 	for i := 0; i < 20; i++ {
 		time.Sleep(1 * time.Second)
 		deviceCodeCreationResult := checkDeviceCodeStatus(devMode, deviceCodeCreationResult.DeviceCode)
-		if deviceCodeCreationResult.Confirmed == true {
+		if deviceCodeCreationResult.Confirmed {
 			fmt.Println("Device code has been confirmed")
 
 			firebaseAuthToken, exchangeErr := exchangeCustomAuthTokenForFirebaseToken(deviceCodeCreationResult.AuthToken)

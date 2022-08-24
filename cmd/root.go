@@ -42,6 +42,7 @@ func NewChecksonCommand(streams output.IOStreams) *cobra.Command {
 	rootCmd.AddCommand(newCreateCheckCmd())
 	rootCmd.AddCommand(newDeleteCheckCmd())
 	rootCmd.AddCommand(newShowCheckCmd())
+	rootCmd.AddCommand(newChannelCmd())
 
 	// use upper-case letters for shorthand params to avoid conflicts with local flags
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config-file", "C", "", fmt.Sprintf("config file. one of: %v", configPaths))

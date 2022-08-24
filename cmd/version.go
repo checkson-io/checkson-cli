@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/spf13/cobra"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 )
 
 var Version string

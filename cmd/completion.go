@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"os"
 )
 

@@ -14,7 +14,7 @@ TESTS    := $(shell find . -name '*.go' -type f -not -name '*.pb.go' -not -name 
 
 .DEFAULT_GOAL := all
 .PHONY: all
-all: vet fmt lint test build docs
+all: vet fmt lint test build
 
 .PHONY: vet
 vet:
@@ -38,16 +38,11 @@ integration_test:
 
 .PHONY: build
 build:
-	go build -ldflags $(ld_flags) -o checkson
-
-.PHONY: docs
-docs: build
-	touch /tmp/empty.yaml
-	./checkson docs --directory docs --single-page --config-file=/tmp/empty.yaml
+	go build -ldflags $(ld_flags) -o checkson-cli
 
 .PHONY: clean
 clean:
-	rm -f checkson
+	rm -f checkson-cli
 	go clean -testcache
 
 # usage make version=0.0.4 release
