@@ -1,10 +1,9 @@
 package operations
 
 import (
-	"fmt"
+	"errors"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"net/http"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 )
 
 type DeleteCheckFlags struct {
@@ -15,23 +14,10 @@ type DeleteCheckOperation struct {
 }
 
 func (operation *DeleteCheckOperation) DeleteCheckOperation(checkName string, flags DeleteCheckFlags) error {
-
-	authToken, _ := auth.ReadAuthToken()
-
-	client := &http.Client{}
-
-	req, err := http.NewRequest("DELETE", getApiUrl(flags.DevMode, "api/checks/")+checkName, nil)
+	authToken, err := auth.ReadAuthToken()
 	if err != nil {
-		return fmt.Errorf("problem preparing request: %w", err)
+		return errors.New("you are not logged in. Login with: 'checkson login'")
 	}
-	req.Header.Add("Authorization", "Bearer "+authToken)
 
-	resp, err1 := client.Do(req)
-	if err1 != nil {
-		return fmt.Errorf("problem performing request: %w", err1)
-	}
-	defer resp.Body.Close()
-	output.PrintStrings("Response status:", resp.Status)
-
-	return nil
+	return services.DeleteCheck(checkName, authToken, flags.DevMode)
 }

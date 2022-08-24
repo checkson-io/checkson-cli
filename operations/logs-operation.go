@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"io/ioutil"
 	"net/http"
 )
@@ -24,7 +25,7 @@ func (operation *LogsOperation) LogsOperation(checkName string, runId string, fl
 
 	path := fmt.Sprintf("api/checks/%s/runs/%s/log", checkName, runId)
 	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", getApiUrl(flags.DevMode, path), nil)
+	req, err1 := http.NewRequest("GET", services.getApiUrl(flags.DevMode, path), nil)
 	if err1 != nil {
 		return fmt.Errorf("problem preparing request: %w", err1)
 	}

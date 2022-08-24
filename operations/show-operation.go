@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -21,7 +22,7 @@ func (operation *ShowOperation) ShowOperation(checkName string, flags ShowOperat
 	authToken, _ := auth.ReadAuthToken()
 
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", getApiUrl(flags.DevMode, "api/checks/")+checkName, nil)
+	req, err := http.NewRequest("GET", services.getApiUrl(flags.DevMode, "api/checks/")+checkName, nil)
 	if err != nil {
 		return fmt.Errorf("problem preparing request: %w", err)
 	}
@@ -40,7 +41,7 @@ func (operation *ShowOperation) ShowOperation(checkName string, flags ShowOperat
 		panic(readErr)
 	}
 
-	var check Check
+	var check services.Check
 	jsonErr := json.Unmarshal(body, &check)
 	if jsonErr != nil {
 		log.Fatalf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())

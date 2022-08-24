@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -41,7 +42,7 @@ func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFla
 	}
 
 	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", getApiUrl(flags.DevMode, "api/runs"), nil)
+	req, err1 := http.NewRequest("GET", services.getApiUrl(flags.DevMode, "api/runs"), nil)
 	if err1 != nil {
 		return fmt.Errorf("problem preparing request: %w", err1)
 	}

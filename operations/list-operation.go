@@ -1,14 +1,10 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
+	"errors"
 	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"io/ioutil"
-	"log"
-	"net/http"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"os"
 	"strconv"
 )
@@ -23,34 +19,12 @@ type ListOperationFlags struct {
 func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 	authToken, err := auth.ReadAuthToken()
 	if err != nil {
-		fmt.Println("You are not logged in. Login with: 'checkson login'")
-		return nil
+		return errors.New("you are not logged in. Login with: 'checkson login'")
 	}
 
-	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", getApiUrl(flags.DevMode, "api/checks"), nil)
-
+	checks, err1 := services.ListChecks(authToken, flags.DevMode)
 	if err1 != nil {
-		return fmt.Errorf("problem preparing request: %w", err1)
-	}
-	req.Header.Add("Authorization", "Bearer "+authToken)
-
-	resp, err2 := client.Do(req)
-	if err2 != nil {
-		panic(err2)
-	}
-	defer resp.Body.Close()
-	output.Debugf("Response status: %s", resp.Status)
-
-	body, readErr := ioutil.ReadAll(resp.Body)
-	if readErr != nil {
-		panic(readErr)
-	}
-
-	var checks []Check
-	jsonErr := json.Unmarshal(body, &checks)
-	if jsonErr != nil {
-		log.Fatalf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())
+		return err1
 	}
 
 	var data [][]string

@@ -1,13 +1,9 @@
 package operations
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"github.com/pkg/errors"
+	"errors"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"net/http"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 )
 
 type CreateCheckFlags struct {
@@ -24,9 +20,12 @@ type CreateCheckOperation struct {
 
 func (operation *CreateCheckOperation) CreateCheckOperation(checkName string, flags CreateCheckFlags) error {
 
-	authToken, _ := auth.ReadAuthToken()
+	authToken, err := auth.ReadAuthToken()
+	if err != nil {
+		return errors.New("you are not logged in. Login with: 'checkson login'")
+	}
 
-	check := Check{
+	check := services.Check{
 		Name:                   checkName,
 		WebHookUrl:             flags.WebHookUrl,
 		DockerImage:            flags.DockerImage,
@@ -34,31 +33,5 @@ func (operation *CreateCheckOperation) CreateCheckOperation(checkName string, fl
 		Environment:            flags.Environment,
 	}
 
-	client := &http.Client{}
-
-	jsonBytes, jsonErr := json.Marshal(check)
-	output.Debugf("Sending:", string(jsonBytes))
-	if jsonErr != nil {
-		return errors.New("Cannot serialize check")
-	}
-
-	// TODO: Create notification channel
-
-	url := getApiUrl(flags.DevMode, "api/checks/")
-	req, err := http.NewRequest("PUT", url+checkName, bytes.NewBuffer(jsonBytes))
-
-	if err != nil {
-		return fmt.Errorf("problem preparing request: %w", err)
-	}
-	req.Header.Add("Authorization", "Bearer "+authToken)
-	req.Header.Add("Content-Type", "application/json")
-
-	resp, err1 := client.Do(req)
-	if err1 != nil {
-		return fmt.Errorf("problem performing request: %w", err1)
-	}
-	defer resp.Body.Close()
-	output.PrintStrings("Response status:", resp.Status)
-
-	return nil
+	return services.CreateCheck(check, authToken, flags.DevMode)
 }

@@ -1,4 +1,4 @@
-package operations
+package services
 
 type Check struct {
 	Name                      string            `json:"name"`
@@ -9,4 +9,13 @@ type Check struct {
 	LastOutcomeChange         string            `json:"lastOutcomeChange"`
 	LastOutcomeChangeDuration string            `json:"lastOutcomeChangeDuration"`
 	Environment               map[string]string `json:"environment"`
+}
+
+type NotificationChannel struct {
+	Name                    string `json:"name"`
+	Type                    string `json:"type"`
+	WebhookUrl              string `json:"webhookUrl"`
+	EmailAddress            string `json:"emailAddress"`
+	SlackIncomingWebhookUrl string `json:"slackIncomingWebhookUrl"`
+	PagerDutyServiceKey     string `json:"pagerDutyServiceKey"`
 }

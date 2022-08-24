@@ -26,11 +26,15 @@ func newCreateChannelCmd() *cobra.Command {
 			if err := (&operations.CreateChannelOperation{}).CreateChannelOperation(args[0], flags); err != nil {
 				output.Fail(err)
 			}
+
 		},
 	}
 
+	cmdCreateChannel.Flags().StringVarP(&flags.Type, "type", "t", "", "The channel type. Valid values: webhook, slack, pager-duty, email")
 	cmdCreateChannel.Flags().StringVarP(&flags.WebHookUrl, "webhook-url", "w", "", "The webhook to call when the status of the check changes")
-	cmdCreateChannel.Flags().StringVarP(&flags.WebHookUrl, "email", "e", "", "The email address to inform when the status of the check changes")
+	cmdCreateChannel.Flags().StringVarP(&flags.EmailAddress, "email", "e", "", "The email address to inform when the status of the check changes")
+	cmdCreateChannel.Flags().StringVarP(&flags.PagerDutyServiceKey, "slack-incoming-webhook-url", "s", "", "The webhook URL for Slack")
+	cmdCreateChannel.Flags().StringVarP(&flags.SlackIncomingWebhookUrl, "pager-duty-service-key", "p", "", "The Pager Duty Service key")
 
 	return cmdCreateChannel
 }

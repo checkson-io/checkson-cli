@@ -1,54 +1,54 @@
 package operations
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
 	"github.com/pkg/errors"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"net/http"
+	"github.com/stefan-hudelmaier/checkson-cli/services"
 )
 
 type CreateChannelFlags struct {
-	DevMode      bool
-	WebHookUrl   string
-	EmailAddress string
+	DevMode                 bool
+	Type                    string
+	WebHookUrl              string
+	EmailAddress            string
+	PagerDutyServiceKey     string
+	SlackIncomingWebhookUrl string
 }
 
 type CreateChannelOperation struct {
 }
 
-func (operation *CreateChannelOperation) CreateChannelOperation(checkName string, flags CreateChannelFlags) error {
+func (operation *CreateChannelOperation) CreateChannelOperation(channelName string, flags CreateChannelFlags) error {
 
-	authToken, _ := auth.ReadAuthToken()
-
-	// TODO: Implement
-
-	check := Check{
-		Name:       checkName,
-		WebHookUrl: flags.WebHookUrl,
+	if flags.Type == "email" && len(flags.EmailAddress) == 0 {
+		return errors.New("When type 'email' is used, the parameter --email must be specified")
 	}
 
-	client := &http.Client{}
-
-	jsonBytes, jsonErr := json.Marshal(check)
-	output.Debugf("Sending:", string(jsonBytes))
-	if jsonErr != nil {
-		return errors.New("Cannot serialize check")
+	if flags.Type == "pager-duty" && len(flags.PagerDutyServiceKey) == 0 {
+		return errors.New("When type 'pager-duty' is used, the option --pager-duty-incoming-webhook must be specified")
 	}
 
-	url := getApiUrl(flags.DevMode, "api/checks/")
-	req, err := http.NewRequest("PUT", url+checkName, bytes.NewBuffer(jsonBytes))
-	req.Header.Add("Authorization", "Bearer "+authToken)
-	req.Header.Add("Content-Type", "application/json")
-
-	resp, err1 := client.Do(req)
-	if err1 != nil {
-		return fmt.Errorf("problem performing request: %w", err)
+	if flags.Type == "slack" && len(flags.SlackIncomingWebhookUrl) == 0 {
+		return errors.New("When type 'slack' is used, the option --slack-incoming-webhook-url must be specified")
 	}
-	defer resp.Body.Close()
-	output.PrintStrings("Response status:", resp.Status)
 
-	return nil
+	if flags.Type == "webhook" && len(flags.WebHookUrl) == 0 {
+		return errors.New("When type 'webhook' is used, the option --webhook must be specified")
+	}
+
+	authToken, err := auth.ReadAuthToken()
+	if err != nil {
+		return errors.New("you are not logged in. Login with: 'checkson login'")
+	}
+
+	channel := services.NotificationChannel{
+		Name:                    channelName,
+		Type:                    flags.Type,
+		WebhookUrl:              flags.WebHookUrl,
+		SlackIncomingWebhookUrl: flags.SlackIncomingWebhookUrl,
+		EmailAddress:            flags.EmailAddress,
+		PagerDutyServiceKey:     flags.PagerDutyServiceKey,
+	}
+
+	return services.CreateChannel(channel, authToken, flags.DevMode)
 }
