@@ -1,16 +1,10 @@
 package operations
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/olekukonko/tablewriter"
-	"github.com/pkg/errors"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
-	"io/ioutil"
-	"log"
-	"net/http"
 	"os"
 	"strconv"
 )
@@ -20,15 +14,6 @@ type ListRunsOperation struct {
 
 type ListRunsOperationFlags struct {
 	DevMode bool
-}
-
-type Run struct {
-	Id                string `json:"id"`
-	CheckName         string `json:"checkName"`
-	StartTime         string `json:"startTime"`
-	EndTime           string `json:"endTime"`
-	Success           bool   `json:"success"`
-	DurationInSeconds int    `json:"durationInSeconds"`
 }
 
 func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFlags) error {
@@ -41,39 +26,9 @@ func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFla
 		return nil
 	}
 
-	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", services.getApiUrl(flags.DevMode, "api/runs"), nil)
+	runs, err1 := services.ListRuns(authToken, flags.DevMode)
 	if err1 != nil {
-		return fmt.Errorf("problem preparing request: %w", err1)
-	}
-
-	req.Header.Add("Authorization", "Bearer "+authToken)
-
-	resp, err2 := client.Do(req)
-	if err2 != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-	output.Debugf("Response status: %s", resp.Status)
-
-	body, readErr := ioutil.ReadAll(resp.Body)
-	if readErr != nil {
-		panic(readErr)
-	}
-
-	// TODO: Make this reusable and use it for other operations as well
-	if resp.StatusCode == 401 {
-		return errors.New("Not logged in. Please log in using 'checkson login'")
-	}
-
-	if resp.StatusCode != 200 {
-		return fmt.Errorf("unexpected response from API. Status code: %d, Status: %s", resp.StatusCode, resp.Status)
-	}
-
-	var runs []Run
-	jsonErr := json.Unmarshal(body, &runs)
-	if jsonErr != nil {
-		log.Fatalf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())
+		return err1
 	}
 
 	var data [][]string

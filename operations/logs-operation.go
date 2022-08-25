@@ -5,8 +5,6 @@ import (
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
-	"io/ioutil"
-	"net/http"
 )
 
 type LogsOperation struct {
@@ -23,27 +21,11 @@ func (operation *LogsOperation) LogsOperation(checkName string, runId string, fl
 		return nil
 	}
 
-	path := fmt.Sprintf("api/checks/%s/runs/%s/log", checkName, runId)
-	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", services.getApiUrl(flags.DevMode, path), nil)
-	if err1 != nil {
-		return fmt.Errorf("problem preparing request: %w", err1)
-	}
-	req.Header.Add("Authorization", "Bearer "+authToken)
-
-	resp, err2 := client.Do(req)
-	if err2 != nil {
-		panic(err2)
-	}
-	defer resp.Body.Close()
-	output.Debugf("Response status: %s", resp.Status)
-
-	body, readErr := ioutil.ReadAll(resp.Body)
-	if readErr != nil {
-		panic(readErr)
+	log, err1 := services.GetLog(checkName, runId, authToken, flags.DevMode)
+	if err != nil {
+		return err1
 	}
 
-	output.PrintStrings(string(body[:]))
-
+	output.PrintStrings(log)
 	return nil
 }

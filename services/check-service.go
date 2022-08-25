@@ -17,7 +17,7 @@ func CreateCheck(check Check, authToken string, devMode bool) error {
 	jsonBytes, jsonErr := json.Marshal(check)
 	output.Debugf("Sending:", string(jsonBytes))
 	if jsonErr != nil {
-		return errors.New("Cannot serialize check")
+		return errors.New("cannot serialize check")
 	}
 
 	url := getApiUrl(devMode, "api/checks/")
@@ -68,7 +68,7 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 
 	resp, err2 := client.Do(req)
 	if err2 != nil {
-		return nil, err2
+		return nil, fmt.Errorf("problem performing request: %w", err2)
 	}
 	defer resp.Body.Close()
 
@@ -89,4 +89,69 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 	}
 
 	return checks, nil
+}
+
+func ListRuns(authToken string, devMode bool) ([]Run, error) {
+
+	client := &http.Client{}
+	req, err1 := http.NewRequest("GET", getApiUrl(devMode, "api/runs"), nil)
+	if err1 != nil {
+		return nil, fmt.Errorf("problem preparing request: %w", err1)
+	}
+
+	addHeaders(req, authToken)
+
+	resp, err2 := client.Do(req)
+	if err2 != nil {
+		return nil, fmt.Errorf("problem performing request: %w", err2)
+	}
+	defer resp.Body.Close()
+
+	err3 := handleRestResponse("Checks", resp)
+	if err3 != nil {
+		return nil, err3
+	}
+
+	body, readErr := ioutil.ReadAll(resp.Body)
+	if readErr != nil {
+		return nil, errors.New("cannot parse result")
+	}
+
+	var runs []Run
+	jsonErr := json.Unmarshal(body, &runs)
+	if jsonErr != nil {
+		return nil, fmt.Errorf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())
+	}
+
+	return runs, nil
+}
+
+func GetLog(checkName string, runId string, authToken string, devMode bool) (string, error) {
+
+	path := fmt.Sprintf("api/checks/%s/runs/%s/log", checkName, runId)
+	client := &http.Client{}
+	req, err1 := http.NewRequest("GET", getApiUrl(devMode, path), nil)
+	if err1 != nil {
+		return "", fmt.Errorf("problem preparing request: %w", err1)
+	}
+	addHeaders(req, authToken)
+
+	resp, err2 := client.Do(req)
+	if err2 != nil {
+		return "", err2
+	}
+	defer resp.Body.Close()
+
+	err3 := handleRestResponse("Run", resp)
+	if err3 != nil {
+		return "", err3
+	}
+	output.Debugf("Response status: %s", resp.Status)
+
+	body, err4 := ioutil.ReadAll(resp.Body)
+	if err4 != nil {
+		return "", err4
+	}
+
+	return string(body[:]), nil
 }

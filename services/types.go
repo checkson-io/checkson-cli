@@ -19,3 +19,12 @@ type NotificationChannel struct {
 	SlackIncomingWebhookUrl string `json:"slackIncomingWebhookUrl"`
 	PagerDutyServiceKey     string `json:"pagerDutyServiceKey"`
 }
+
+type Run struct {
+	Id                string `json:"id"`
+	CheckName         string `json:"checkName"`
+	StartTime         string `json:"startTime"`
+	EndTime           string `json:"endTime"`
+	Success           bool   `json:"success"`
+	DurationInSeconds int    `json:"durationInSeconds"`
+}
