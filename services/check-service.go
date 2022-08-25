@@ -98,7 +98,6 @@ func ListRuns(authToken string, devMode bool) ([]Run, error) {
 	if err1 != nil {
 		return nil, fmt.Errorf("problem preparing request: %w", err1)
 	}
-
 	addHeaders(req, authToken)
 
 	resp, err2 := client.Do(req)
@@ -146,7 +145,6 @@ func GetLog(checkName string, runId string, authToken string, devMode bool) (str
 	if err3 != nil {
 		return "", err3
 	}
-	output.Debugf("Response status: %s", resp.Status)
 
 	body, err4 := ioutil.ReadAll(resp.Body)
 	if err4 != nil {
@@ -154,4 +152,39 @@ func GetLog(checkName string, runId string, authToken string, devMode bool) (str
 	}
 
 	return string(body[:]), nil
+}
+
+func GetCheck(checkName string, authToken string, devMode bool) (*Check, error) {
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", getApiUrl(devMode, "api/checks/")+checkName, nil)
+	if err != nil {
+		return nil, fmt.Errorf("problem preparing request: %w", err)
+	}
+	addHeaders(req, authToken)
+
+	resp, err1 := client.Do(req)
+	if err1 != nil {
+		return nil, fmt.Errorf("problem performing request: %w", err1)
+	}
+
+	defer resp.Body.Close()
+
+	err2 := handleRestResponse("Check", resp)
+	if err2 != nil {
+		return nil, err2
+	}
+
+	body, readErr := ioutil.ReadAll(resp.Body)
+	if readErr != nil {
+		return nil, readErr
+	}
+
+	var check Check
+	jsonErr := json.Unmarshal(body, &check)
+	if jsonErr != nil {
+		return nil, jsonErr
+	}
+
+	return &check, nil
 }
