@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/pkg/browser"
 	"github.com/pkg/errors"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"io/ioutil"
@@ -32,26 +33,31 @@ func DeviceCodeLogin(devMode bool) error {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	output.PrintStrings("Response status:", resp.Status)
+	output.Debugf("Response status:", resp.Status)
 
-	body, readErr := ioutil.ReadAll(resp.Body)
-	if readErr != nil {
-		panic(readErr)
+	body, err1 := ioutil.ReadAll(resp.Body)
+	if err1 != nil {
+		panic(err1)
 	}
 
 	var deviceCodeCreationResult DeviceCodeCreationResult
-	jsonErr := json.Unmarshal(body, &deviceCodeCreationResult)
-	if jsonErr != nil {
-		log.Fatalf("unable to parse value: %q, error: %s", string(body), jsonErr.Error())
+	err2 := json.Unmarshal(body, &deviceCodeCreationResult)
+	if err2 != nil {
+		log.Fatalf("unable to parse value: %q, error: %s", string(body), err2.Error())
 	}
 
-	fmt.Printf("Go to %s/signin-device-code?deviceCode=%s\n", getUiBaseUrl(devMode), deviceCodeCreationResult.DeviceCode)
+	url := fmt.Sprintf("%s/signin-device-code?deviceCode=%s", getUiBaseUrl(devMode), deviceCodeCreationResult.DeviceCode)
+	fmt.Printf("Go to %s\n", url)
+	err3 := browser.OpenURL(url)
+	if err3 != nil {
+		output.PrintStrings("Could not open browser, copy and paste the above URL")
+	}
 
 	for i := 0; i < 20; i++ {
 		time.Sleep(1 * time.Second)
 		deviceCodeCreationResult := checkDeviceCodeStatus(devMode, deviceCodeCreationResult.DeviceCode)
 		if deviceCodeCreationResult.Confirmed {
-			fmt.Println("Device code has been confirmed")
+			output.Debugf("Device code has been confirmed, login succeeded")
 
 			firebaseAuthToken, exchangeErr := exchangeCustomAuthTokenForFirebaseToken(deviceCodeCreationResult.AuthToken)
 			if exchangeErr != nil {
@@ -64,7 +70,7 @@ func DeviceCodeLogin(devMode bool) error {
 			}
 			return nil
 		} else {
-			fmt.Println("Device code has not been confirmed yet, trying again")
+			output.Debugf("Device code has not been confirmed yet, trying again")
 		}
 	}
 	return errors.New("timeout waiting for login")
@@ -79,7 +85,7 @@ func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResu
 		panic(err)
 	}
 	defer resp.Body.Close()
-	output.PrintStrings("Response status:", resp.Status)
+	output.Debugf("Response status:", resp.Status)
 
 	body, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil {

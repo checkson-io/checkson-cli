@@ -12,3 +12,7 @@ You can install the pre-compiled binary or compile from source.
 ## Origin
 
 This command line tool is partly based on [kafkactl](https://github.com/deviceinsight/kafkactl)
+
+## Development
+
+* Install [golangcli-lint](https://golangci-lint.run/usage/install/#local-installation)
