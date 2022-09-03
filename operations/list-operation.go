@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 )
+import "github.com/TwiN/go-color"
 
 type ListOperation struct {
 }
@@ -29,11 +30,15 @@ func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 
 	var data [][]string
 	for _, check := range checks {
-		data = append(data, []string{check.Name, check.Status, check.LastStatusChange, check.DockerImage, strconv.Itoa(int(check.CheckIntervalInMinutes))})
+		statusChar := color.Ize(color.Green, "✔")
+		if check.Status != "OK" {
+			statusChar = color.Ize(color.Red, "✖")
+		}
+		data = append(data, []string{statusChar, check.Name, check.LastStatusChange, check.DockerImage, strconv.Itoa(int(check.CheckIntervalInMinutes))})
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Name", "Status", "Since", "Docker Image", "Interval"})
+	table.SetHeader([]string{"Status", "Name", "Since", "Docker Image", "Interval"})
 
 	for _, v := range data {
 		table.Append(v)

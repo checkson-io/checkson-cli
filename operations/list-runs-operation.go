@@ -17,9 +17,7 @@ type ListRunsOperationFlags struct {
 	DevMode bool
 }
 
-func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFlags) error {
-
-	// TODO: Call the to-be-created runs API
+func (operation *ListRunsOperation) ListRunsOperation(checkName string, flags ListRunsOperationFlags) error {
 
 	authToken, err := auth.ReadAuthToken()
 	if err != nil {
@@ -27,7 +25,7 @@ func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFla
 		return nil
 	}
 
-	runs, err1 := services.ListRuns(authToken, flags.DevMode)
+	runs, err1 := services.ListRuns(authToken, checkName, flags.DevMode)
 	if err1 != nil {
 		return err1
 	}

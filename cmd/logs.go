@@ -15,7 +15,7 @@ func newLogsCmd() *cobra.Command {
 	var flags operations.LogsOperationFlags
 
 	var cmdLogs = &cobra.Command{
-		Use:    "logs",
+		Use:    "logs CHECK [RUN_ID]",
 		Short:  "Show log output of runs",
 		Long:   logsDesc,
 		Hidden: false,

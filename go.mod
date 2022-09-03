@@ -1,6 +1,7 @@
 module github.com/stefan-hudelmaier/checkson-cli
 
 require (
+	github.com/TwiN/go-color v1.1.0
 	github.com/magiconair/properties v1.8.4 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/olekukonko/tablewriter v0.0.5

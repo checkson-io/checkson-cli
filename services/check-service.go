@@ -91,10 +91,15 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 	return checks, nil
 }
 
-func ListRuns(authToken string, devMode bool) ([]Run, error) {
+func ListRuns(authToken string, checkName string, devMode bool) ([]Run, error) {
 
 	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", getApiUrl(devMode, "api/finished-runs"), nil)
+	path := "api/finished-runs"
+
+	if checkName != "" {
+		path = "api/checks/" + checkName + "/finished-runs"
+	}
+	req, err1 := http.NewRequest("GET", getApiUrl(devMode, path), nil)
 	if err1 != nil {
 		return nil, fmt.Errorf("problem preparing request: %w", err1)
 	}
