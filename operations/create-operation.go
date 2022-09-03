@@ -6,6 +6,8 @@ import (
 	"github.com/stefan-hudelmaier/checkson-cli/services"
 )
 
+// TODO: Update the flags
+
 type CreateCheckFlags struct {
 	DockerImage            string
 	CheckIntervalInMinutes int16
@@ -27,7 +29,6 @@ func (operation *CreateCheckOperation) CreateCheckOperation(checkName string, fl
 
 	check := services.Check{
 		Name:                   checkName,
-		WebHookUrl:             flags.WebHookUrl,
 		DockerImage:            flags.DockerImage,
 		CheckIntervalInMinutes: flags.CheckIntervalInMinutes,
 		Environment:            flags.Environment,

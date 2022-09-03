@@ -29,7 +29,7 @@ func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 
 	var data [][]string
 	for _, check := range checks {
-		data = append(data, []string{check.Name, check.LastCheckOutcome, check.LastOutcomeChangeDuration, check.DockerImage, strconv.Itoa(int(check.CheckIntervalInMinutes))})
+		data = append(data, []string{check.Name, check.Status, check.LastStatusChange, check.DockerImage, strconv.Itoa(int(check.CheckIntervalInMinutes))})
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)

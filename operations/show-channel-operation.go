@@ -1,6 +1,7 @@
 package operations
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
@@ -26,8 +27,12 @@ func (operation *ShowChannelOperation) ShowChannelOperation(channelName string, 
 		return err1
 	}
 
-	// TODO: Property output check
-	fmt.Println(channel)
+	bytes, err2 := json.MarshalIndent(channel, "", "   ")
+	if err2 != nil {
+		return err2
+	}
+
+	fmt.Println(string(bytes))
 
 	return nil
 }

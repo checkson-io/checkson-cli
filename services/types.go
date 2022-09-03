@@ -1,14 +1,24 @@
 package services
 
 type Check struct {
-	Name                      string            `json:"name"`
-	WebHookUrl                string            `json:"webHookUrl"`
-	DockerImage               string            `json:"dockerImage"`
-	CheckIntervalInMinutes    int16             `json:"checkIntervalInMinutes"`
-	LastCheckOutcome          string            `json:"lastCheckOutcome"`
-	LastOutcomeChange         string            `json:"lastOutcomeChange"`
-	LastOutcomeChangeDuration string            `json:"lastOutcomeChangeDuration"`
-	Environment               map[string]string `json:"environment"`
+	Name                   string            `json:"name"`
+	Enabled                bool              `json:"enabled"`
+	DockerImage            string            `json:"dockerImage"`
+	DockerCredentials      DockerCredentials `json:"dockerCredentials"`
+	CheckIntervalInMinutes int16             `json:"checkIntervalInMinutes"`
+	Environment            map[string]string `json:"environment"`
+	FailureThreshold       int16             `json:"failureThreshold"`
+	FailureCount           int16             `json:"failureCount"`
+	LastRunOutcome         string            `json:"LastRunOutcome"`
+	Status                 string            `json:"status"`
+	LastStatusChange       string            `json:"lastStatusChange"`
+	NextRun                string            `json:"nextRun"`
+	NotificationChannels   []string          `json:"notificationChannels"`
+}
+
+type DockerCredentials struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type NotificationChannel struct {
@@ -25,6 +35,6 @@ type Run struct {
 	CheckName         string `json:"checkName"`
 	StartTime         string `json:"startTime"`
 	EndTime           string `json:"endTime"`
-	Success           bool   `json:"success"`
+	Outcome           string `json:"outcome"`
 	DurationInSeconds int    `json:"durationInSeconds"`
 }

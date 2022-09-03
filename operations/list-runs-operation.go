@@ -7,6 +7,7 @@ import (
 	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type ListRunsOperation struct {
@@ -33,10 +34,7 @@ func (operation *ListRunsOperation) ListRunsOperation(flags ListRunsOperationFla
 
 	var data [][]string
 	for _, run := range runs {
-		successString := "Success"
-		if !run.Success {
-			successString = "Failure"
-		}
+		successString := strings.Title(strings.ToLower(run.Outcome))
 		data = append(data, []string{run.CheckName, run.Id, run.StartTime, run.EndTime, strconv.Itoa(run.DurationInSeconds), successString})
 	}
 

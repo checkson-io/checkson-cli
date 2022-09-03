@@ -94,7 +94,7 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 func ListRuns(authToken string, devMode bool) ([]Run, error) {
 
 	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", getApiUrl(devMode, "api/runs"), nil)
+	req, err1 := http.NewRequest("GET", getApiUrl(devMode, "api/finished-runs"), nil)
 	if err1 != nil {
 		return nil, fmt.Errorf("problem preparing request: %w", err1)
 	}
@@ -106,7 +106,7 @@ func ListRuns(authToken string, devMode bool) ([]Run, error) {
 	}
 	defer resp.Body.Close()
 
-	err3 := handleRestResponse("Checks", resp)
+	err3 := handleRestResponse("Runs", resp)
 	if err3 != nil {
 		return nil, err3
 	}
