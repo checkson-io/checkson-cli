@@ -1,6 +1,6 @@
 # checkson-cli
 
-A command-line interface for interaction with Checkson
+A command-line interface for [Checkson](https://checkson.io)
 
 [![Build Status](https://github.com/stefan-hudelmaier/checkson-cli/workflows/Lint%20%2F%20Test%20%2F%20IT/badge.svg?branch=master)](https://github.com/stefan-hudelmaier/checkson-cli/actions)
 
