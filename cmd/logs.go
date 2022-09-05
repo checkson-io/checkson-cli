@@ -7,7 +7,7 @@ import (
 )
 
 const logsDesc = `
-Show log output. By default the most recent run of a job is shown.
+Show log output of a run. By default the most recent run is used.
 `
 
 func newLogsCmd() *cobra.Command {
@@ -16,7 +16,7 @@ func newLogsCmd() *cobra.Command {
 
 	var cmdLogs = &cobra.Command{
 		Use:    "logs CHECK [RUN_ID]",
-		Short:  "Show log output of runs",
+		Short:  "Show log output of a run, the most recent one by default",
 		Long:   logsDesc,
 		Hidden: false,
 		Args:   cobra.RangeArgs(1, 2),
