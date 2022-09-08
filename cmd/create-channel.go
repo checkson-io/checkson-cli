@@ -7,7 +7,7 @@ import (
 )
 
 const createChannelDesc = `
-Create check
+Create or update a notification channel
 `
 
 func newCreateChannelCmd() *cobra.Command {
@@ -16,7 +16,7 @@ func newCreateChannelCmd() *cobra.Command {
 
 	var cmdCreateChannel = &cobra.Command{
 		Use:    "create CHANNEL",
-		Short:  "create a notification channel",
+		Short:  "create/update a notification channel",
 		Long:   createChannelDesc,
 		Hidden: false,
 		Args:   cobra.ExactArgs(1),
