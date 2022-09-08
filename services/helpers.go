@@ -3,6 +3,7 @@ package services
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -19,6 +20,13 @@ func getApiUrl(devMode bool, path string) string {
 func handleRestResponse(entityName string, resp *http.Response) error {
 	if resp.StatusCode == 401 {
 		return errors.New("you are not logged in, please login using 'checkson login'")
+	} else if resp.StatusCode == 400 {
+
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return errors.New("validation error: Cannot read response")
+		}
+		return errors.New("validation error: " + string(body[:]))
 	} else if resp.StatusCode == 200 {
 		return nil
 	} else if resp.StatusCode == 404 {
