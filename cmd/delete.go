@@ -27,6 +27,8 @@ func newDeleteCheckCmd() *cobra.Command {
 
 			if err := (&operations.DeleteCheckOperation{}).DeleteCheckOperation(args[0], flags); err != nil {
 				output.Fail(err)
+			} else {
+				output.PrintStrings("Check deleted")
 			}
 		},
 	}

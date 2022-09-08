@@ -25,6 +25,8 @@ func newDeleteChannelCmd() *cobra.Command {
 			flags.DevMode = devMode
 			if err := (&operations.DeleteChannelOperation{}).DeleteChannelOperation(args[0], flags); err != nil {
 				output.Fail(err)
+			} else {
+				output.PrintStrings("Notification channel deleted")
 			}
 		},
 	}

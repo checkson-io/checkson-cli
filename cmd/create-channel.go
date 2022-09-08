@@ -25,8 +25,9 @@ func newCreateChannelCmd() *cobra.Command {
 			flags.DevMode = devMode
 			if err := (&operations.CreateChannelOperation{}).CreateChannelOperation(args[0], flags); err != nil {
 				output.Fail(err)
+			} else {
+				output.PrintStrings("Notification channel created/updated")
 			}
-
 		},
 	}
 

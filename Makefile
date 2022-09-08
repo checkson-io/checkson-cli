@@ -45,6 +45,9 @@ clean:
 	rm -f checkson-cli
 	go clean -testcache
 
+install:
+	sudo cp ./checkson-cli /usr/local/bin/checkson
+
 # usage make version=0.0.4 release
 #
 # manually executing goreleaser:

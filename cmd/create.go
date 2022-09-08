@@ -25,6 +25,8 @@ func newCreateCheckCmd() *cobra.Command {
 			flags.DevMode = devMode
 			if err := (&operations.CreateCheckOperation{}).CreateCheckOperation(args[0], flags); err != nil {
 				output.Fail(err)
+			} else {
+				output.PrintStrings("Check created/updated")
 			}
 		},
 	}
