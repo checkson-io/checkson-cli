@@ -12,6 +12,7 @@ require (
 	github.com/spf13/cobra v1.0.1-0.20200629195214-2c5a0d300f8b
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/viper v1.7.1
+	golang.org/x/text v0.3.3
 	gopkg.in/ini.v1 v1.61.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0
 )

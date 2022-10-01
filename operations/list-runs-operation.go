@@ -5,6 +5,8 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 	"os"
 	"strconv"
 	"strings"
@@ -32,7 +34,8 @@ func (operation *ListRunsOperation) ListRunsOperation(checkName string, flags Li
 
 	var data [][]string
 	for _, run := range runs {
-		successString := strings.Title(strings.ToLower(run.Outcome))
+		caser := cases.Title(language.AmericanEnglish)
+		successString := caser.String(strings.ToLower(run.Outcome))
 		data = append(data, []string{run.CheckName, run.Id, run.StartTime, run.EndTime, strconv.Itoa(run.DurationInSeconds), successString})
 	}
 
