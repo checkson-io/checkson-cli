@@ -4,6 +4,8 @@ A command-line interface for [Checkson](https://checkson.io)
 
 [![Build Status](https://github.com/stefan-hudelmaier/checkson-cli/workflows/Lint%20%2F%20Test%20%2F%20IT/badge.svg?branch=master)](https://github.com/stefan-hudelmaier/checkson-cli/actions)
 
+[![asciicast](https://asciinema.org/a/8WsaBDT8LCnUjzpINcmpg5v3W.svg)](https://asciinema.org/a/8WsaBDT8LCnUjzpINcmpg5v3W)
+
 ## Installation
 
 You can install the pre-compiled binary or compile from source.
