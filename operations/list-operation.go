@@ -2,11 +2,11 @@ package operations
 
 import (
 	"errors"
+	"fmt"
 	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"os"
-	"strconv"
 )
 import "github.com/TwiN/go-color"
 
@@ -34,11 +34,12 @@ func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 		if check.Status != "OK" {
 			statusChar = color.Ize(color.Red, "✖")
 		}
-		data = append(data, []string{statusChar, check.Name, check.LastStatusChange, check.DockerImage, strconv.Itoa(int(check.CheckIntervalInMinutes))})
+		recentFailures := fmt.Sprintf("%d / %d", check.FailureCount, check.FailureThreshold)
+		data = append(data, []string{statusChar, check.Name, check.LastStatusChange, recentFailures})
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Status", "Name", "Since", "Docker Image", "Interval"})
+	table.SetHeader([]string{"Status", "Name", "Since", "Recent failures"})
 
 	for _, v := range data {
 		table.Append(v)
