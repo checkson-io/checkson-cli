@@ -2,7 +2,7 @@
 
 A command-line interface for [Checkson](https://checkson.io)
 
-[![Build Status](https://github.com/stefan-hudelmaier/checkson-cli/workflows/Lint%20%2F%20Test%20%2F%20IT/badge.svg?branch=master)](https://github.com/stefan-hudelmaier/checkson-cli/actions)
+[![Build Status](https://github.com/checkson-io/checkson-cli/workflows/Lint%20%2F%20Test%20%2F%20IT/badge.svg?branch=master)](https://github.com/checkson-io/checkson-cli/actions)
 
 [![asciicast](https://asciinema.org/a/sa694VnwgjjvxsvBIEecJWbEx.svg)](https://asciinema.org/a/sa694VnwgjjvxsvBIEecJWbEx)
 
