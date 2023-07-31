@@ -13,7 +13,7 @@ Login to checkson
 func newLoginCmd() *cobra.Command {
 
 	// TODO: Add flag: --personal-access-token
-	// Login via curl -X POST -H Content-Type:application/json -d '{"personalAccessToken": "xxx"}' http://.../europe-west1/getCustomAuthTokenForPersonalAccessToken
+	// Login via curl -X POST -H Content-Type:application/json -d '{"personalAccessToken": "xxx"}' http://.../europe-west1/getcustomauthtokenforpersonalaccesstoken
 
 	var flags operations.LoginOperationFlags
 

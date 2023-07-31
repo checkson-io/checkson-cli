@@ -24,7 +24,7 @@ type DeviceCodeStatusResult struct {
 
 func DeviceCodeLogin(devMode bool) error {
 
-	createDeviceCodeUrl := getCloudFunctionUrl(devMode, "createDeviceCode")
+	createDeviceCodeUrl := getCloudFunctionUrl(devMode, "createdevicecode")
 
 	output.Debugf("Creating device code: %s", createDeviceCodeUrl)
 
@@ -79,7 +79,7 @@ func DeviceCodeLogin(devMode bool) error {
 func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResult {
 
 	var jsonStr = []byte(fmt.Sprintf(`{"deviceCode":"%s"}`, deviceCode))
-	resp, err := http.Post(getCloudFunctionUrl(devMode, "getDeviceCodeStatus"), "application/json", bytes.NewBuffer(jsonStr))
+	resp, err := http.Post(getCloudFunctionUrl(devMode, "getdevicecodestatus"), "application/json", bytes.NewBuffer(jsonStr))
 
 	if err != nil {
 		panic(err)
