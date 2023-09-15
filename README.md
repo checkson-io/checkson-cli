@@ -18,3 +18,12 @@ This command line tool is partly based on [kafkactl](https://github.com/devicein
 ## Development
 
 * Install [golangcli-lint](https://golangci-lint.run/usage/install/#local-installation)
+
+## Releasing
+
+In order to release a new version, do the following:
+
+```
+git tag -a v1.0.2 -m "v1.0.2"
+git push origin 1.0.2
+```
