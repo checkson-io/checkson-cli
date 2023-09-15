@@ -100,7 +100,7 @@ func getCloudFunctionUrl(devMode bool, function string) string {
 
 func getUiBaseUrl(devMode bool) string {
 
-	var baseUrl = "https://checkson.io"
+	var baseUrl = "https://app.checkson.io"
 
 	if devMode {
 		baseUrl = "http://localhost:3000"

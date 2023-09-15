@@ -32,8 +32,13 @@ func DeviceCodeLogin(devMode bool) error {
 	if err != nil {
 		panic(err)
 	}
+
 	defer resp.Body.Close()
 	output.Debugf("Response status:", resp.Status)
+
+	if resp.StatusCode != 200 {
+		return errors.New("Could not create device code")
+	}
 
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
@@ -79,7 +84,11 @@ func DeviceCodeLogin(devMode bool) error {
 func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResult {
 
 	var jsonStr = []byte(fmt.Sprintf(`{"deviceCode":"%s"}`, deviceCode))
-	resp, err := http.Post(getCloudFunctionUrl(devMode, "getdevicecodestatus"), "application/json", bytes.NewBuffer(jsonStr))
+
+	deviceCodeStatusUrl := getCloudFunctionUrl(devMode, "getdevicecodestatus")
+	output.Debugf("Checking device code: %s", deviceCodeStatusUrl)
+
+	resp, err := http.Post(deviceCodeStatusUrl, "application/json", bytes.NewBuffer(jsonStr))
 
 	if err != nil {
 		panic(err)
@@ -91,6 +100,8 @@ func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResu
 	if readErr != nil {
 		panic(readErr)
 	}
+
+	output.Debugf("Response body: %s", string(body))
 
 	var deviceCodeStatusResult DeviceCodeStatusResult
 	jsonErr := json.Unmarshal(body, &deviceCodeStatusResult)
