@@ -59,7 +59,7 @@ func DeleteCheck(checkName string, authToken string, devMode bool) error {
 func ListChecks(authToken string, devMode bool) ([]Check, error) {
 
 	client := &http.Client{}
-	req, err1 := http.NewRequest("GET", getApiUrl(devMode, "api/checks"), nil)
+	req, err1 := http.NewRequest("GET", getApiUrl(devMode, "api/checks-full"), nil)
 
 	if err1 != nil {
 		return nil, fmt.Errorf("problem preparing request: %w", err1)
@@ -81,6 +81,8 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 	if readErr != nil {
 		panic(readErr)
 	}
+
+	output.Debugf("Received status: %s", body)
 
 	var checks []Check
 	jsonErr := json.Unmarshal(body, &checks)

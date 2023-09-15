@@ -32,7 +32,7 @@ func GetAuthFile() string {
 
 func exchangeCustomAuthTokenForFirebaseToken(customAuthToken string) (string, error) {
 
-	firebaseApiKey := "AIzaSyA7Uc_3kxi2bx9FyBFeho7fdQkyHQG18Gs"
+	firebaseApiKey := "AIzaSyAvs0ObNRpr5Do8qPXX8YhGG-3oJvcSXWg"
 	var jsonStr = []byte(fmt.Sprintf(`{"token": "%s", "returnSecureToken": "true"}`, customAuthToken))
 	resp, err := http.Post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key="+firebaseApiKey, "application/json", bytes.NewBuffer(jsonStr))
 	if err != nil {
@@ -89,10 +89,10 @@ func RemovePersistedAuthToken() error {
 
 func getCloudFunctionUrl(devMode bool, function string) string {
 
-	var baseUrl = "https://europe-west1-checkson-cadf1.cloudfunctions.net"
+	var baseUrl = "https://europe-west1-checkson-io.cloudfunctions.net"
 
 	if devMode {
-		baseUrl = "http://localhost:5001/checkson-cadf1/europe-west1"
+		baseUrl = "http://localhost:5001/checkson-io/europe-west1"
 	}
 
 	return fmt.Sprintf("%s/%s", baseUrl, function)
