@@ -5,7 +5,7 @@ builds:
   - env:
       - CGO_ENABLED=0
     ldflags:
-      - -s -w -X github.com/stefan-hudelmaier/checkson-cli/cmd.Version={{.Tag}} -X github.com/stefan-hudelmaier/checkson-cli/cmd.GitCommit={{.ShortCommit}} -X github.com/stefan-hudelmaier/checkson-cli/cmd.BuildTime={{.Date}}
+      - -s -w -X github.com/checkson-io/checkson-cli/cmd.Version={{.Tag}} -X github.com/checkson-io/checkson-cli/cmd.GitCommit={{.ShortCommit}} -X github.com/checkson-io/checkson-cli/cmd.BuildTime={{.Date}}
     binary: checkson
     goos:
       - darwin
@@ -25,7 +25,7 @@ checksum:
 nfpms:
   - id: default
     homepage: https://checkson.io/
-    maintainer: Stefan Hudelmaier <[hudelmaier@gmail.com]>
+    maintainer: Stefan Hudelmaier <[stefan@huditech.com]>
     description: A command-line interface for interaction with Checkson
     license: Apache 2.0
 
@@ -48,13 +48,8 @@ snapcrafts:
     license: Apache-2.0
     apps:
       checkson:
-        plugs: ["home", "network", "config-checkson"]
+        plugs: ["home", "network"]
         completer: checkson-completion.bash
-    plugs:
-      config-checkson:
-        interface: personal-files
-        write:
-          - $HOME/.config/checkson/config.yml
 
 #brews:
 #  -
