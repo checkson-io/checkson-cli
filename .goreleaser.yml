@@ -40,6 +40,7 @@ release:
 snapcrafts:
   - id: default
     publish: true
+    aliases: ["checkson"]
     summary: A command-line interface for interaction with checkson.io
     description: |
       A CLI for interacting with https://checkson.io
