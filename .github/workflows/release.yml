@@ -11,24 +11,26 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Unshallow
-        run: git fetch --prune --unshallow
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       -
         name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v4
         with:
           go-version: 1.17
+
       -
         name: Snapcraft login
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
+        uses: samuelmeuli/action-snapcraft@v2
+        env:
           # snapcraft export-login --snaps checkson --channels stable -
-          snapcraft_token: ${{ secrets.snapcraft_token }}
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraft_token }}
+
       -
         name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v5
         with:
           version: latest
           args: release --rm-dist --debug
