@@ -75,6 +75,7 @@ func (operation *CreateCheckOperation) CreateCheckOperation(checkName string, fl
 		FailureThreshold:       flags.FailureThreshold,
 		Environment:            flags.Environment,
 		NotificationChannels:   notificationChannels,
+		Description:            "",
 	}
 
 	return services.CreateCheck(check, authToken, flags.DevMode)

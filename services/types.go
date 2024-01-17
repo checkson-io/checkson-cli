@@ -14,6 +14,7 @@ type Check struct {
 	LastStatusChange       string            `json:"lastStatusChange"`
 	NextRun                string            `json:"nextRun"`
 	NotificationChannels   []string          `json:"notificationChannels"`
+	Description            string            `json:"description"`
 }
 
 type DockerCredentials struct {
