@@ -8,8 +8,65 @@ A command-line interface for [Checkson](https://checkson.io)
 
 ## Installation
 
-You can install the pre-compiled binary or compile from source.
+### Ubuntu / Debian
 
+Download the newest .deb package for your architecture from the [releases page](https://github.com/checkson-io/checkson-cli/releases).
+
+Then:
+
+```
+sudo apt install ./checkson-cli_1.0.2_linux_amd64.deb
+```
+
+### Manual
+
+Download the newest .tar.gz file for your architecture from the [releases page](https://github.com/checkson-io/checkson-cli/releases).
+
+Then:
+
+```
+tar xvzf checkson-cli_1.0.2_linux_amd64.tar.gz -C /tmp
+sudo mv /tmp/checkson /usr/local/bin
+```
+
+## Usage
+
+### Login to Checkson
+
+```
+checkson login
+```
+
+You will be asked to login on https://app.checkson.io and to authorize the CLI.
+
+
+### List checks
+
+This shows the status of all checks:
+
+```
+checkson list
+```
+
+### Create check
+
+This creates a new check that checks a website for SSL/TLS errors and sends
+an email if a problem is found:
+
+```
+checkson-cli create new-check \
+  --docker-image ghcr.io/checkson-io/checkson-testssl-check:main \
+  --env URL=https://yourwebsite.com \
+  --email me@example.com
+```
+
+### Show check details
+
+This shows details of the given check:
+
+```
+checkson-cli show new-check
+```
 
 ## Origin
 
