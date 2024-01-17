@@ -18,4 +18,3 @@ snap.login
 
 ### logs
 *.log
-/checkson-completion.bash
