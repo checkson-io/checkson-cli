@@ -24,7 +24,7 @@ Download the newest .tar.gz file for your architecture from the [releases page](
 
 Then:
 
-```
+```bash
 tar xvzf checkson-cli_1.0.2_linux_amd64.tar.gz -C /tmp
 sudo mv /tmp/checkson /usr/local/bin
 ```
@@ -33,7 +33,7 @@ sudo mv /tmp/checkson /usr/local/bin
 
 ### Login to Checkson
 
-```
+```bash
 checkson login
 ```
 
@@ -44,7 +44,7 @@ You will be asked to login on https://app.checkson.io and to authorize the CLI.
 
 This shows the status of all checks:
 
-```
+```bash
 checkson list
 ```
 
@@ -53,7 +53,7 @@ checkson list
 This creates a new check that checks a website for SSL/TLS errors and sends
 an email if a problem is found:
 
-```
+```bash
 checkson-cli create new-check \
   --docker-image ghcr.io/checkson-io/checkson-testssl-check:main \
   --env URL=https://yourwebsite.com \
@@ -64,7 +64,7 @@ checkson-cli create new-check \
 
 This shows details of the given check:
 
-```
+```bash
 checkson-cli show new-check
 ```
 
