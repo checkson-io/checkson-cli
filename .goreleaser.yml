@@ -37,48 +37,41 @@ release:
   disable: false
   draft: false
 
-#snapcrafts:
-#  - id: default
-#    publish: true
-#    summary: A command-line interface for interaction with Apache Kafka
-#    description: |
-#      A Commandline interface for Apache Kafka which provides useful features adapted from kubectl for Kubernetes.
-#      Multiple kafka brokers can be configured in a config file and the active broker is also persisted within the config.
-#      In addition contmon supports auto-completion for its commands as well as topic names.
-#    grade: stable
-#    confinement: strict
-#    license: Apache-2.0
-#    apps:
-#      contmon:
-#        plugs: ["home", "network", "dot-kube", "config-contmon"]
-#        completer: contmon-completion.bash
-#    plugs:
-#      dot-kube:
-#        interface: personal-files
-#        read:
-#          - $HOME/.kube
-#      config-contmon:
-#        interface: personal-files
-#        write:
-#          - $HOME/.config/contmon/config.yml
+snapcrafts:
+  - id: default
+    publish: true
+    summary: A command-line interface for interaction with checkson.io
+    description: |
+      A CLI for interacting with https://checkson.io
+    grade: stable
+    confinement: strict
+    license: Apache-2.0
+    apps:
+      checkson:
+        plugs: ["home", "network", "config-checkson"]
+        completer: checkson-completion.bash
+    plugs:
+      config-checkson:
+        interface: personal-files
+        write:
+          - $HOME/.config/checkson/config.yml
+
 #brews:
 #  -
 #    tap:
-#      owner: deviceinsight
+#      owner: checkson-io
 #      name: homebrew-packages
 #
 #    commit_author:
 #      name: goreleaserbot
-#      email: goreleaser@device-insight.com
+#      email: goreleaser@checkson-io
 #
 #    folder: Formula
 #
-#    homepage: https://www.device-insight.com/
+#    homepage: https://checkson.io
 #
 #    description: |
-#      A Commandline interface for Apache Kafka which provides useful features adapted from kubectl for Kubernetes.
-#      Multiple kafka brokers can be configured in a config file and the active broker is also persisted within the config.
-#     In addition contmon supports auto-completion for its commands as well as topic names.
+#      A command-line interface for interaction with checkson.io
 #
 #    skip_upload: false
 #
@@ -87,17 +80,17 @@ release:
 #    skip_push: false
 #    dockerfile: Dockerfile.Ubuntu
 #    binaries:
-#      - contmon
+#      - checkson
 #    image_templates:
-#      - "deviceinsight/contmon:latest-ubuntu"
-#      - "deviceinsight/contmon:{{ .Tag }}-ubuntu"
-#      - "deviceinsight/contmon:latest"
-#      - "deviceinsight/contmon:{{ .Tag }}"
+#      - "checkson/checkson:latest-ubuntu"
+#      - "checkson/checkson:{{ .Tag }}-ubuntu"
+#      - "checkson/checkson:latest"
+#      - "checkson/checkson:{{ .Tag }}"
 #  -
 #    skip_push: false
 #    dockerfile: Dockerfile.Scratch
 #    binaries:
-#      - contmon
+#      - checkson
 #    image_templates:
-#      - "deviceinsight/contmon:latest-scratch"
-#      - "deviceinsight/contmon:{{ .Tag }}-scratch"
+#      - "checkson/checkson:latest-scratch"
+#      - "checkson/checkson:{{ .Tag }}-scratch"

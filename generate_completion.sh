@@ -8,7 +8,7 @@ BIN_PATH=$2
 ARCH=linux_amd64
 
 if [ "${BIN_PATH}" == "" ]; then
-  BIN_PATH=${SCRIPT_PATH}/checkson
+  BIN_PATH=${SCRIPT_PATH}/checkson-cli
 fi
 
 if [ "$TARGET" == "" ]; then
