@@ -8,6 +8,9 @@ on:
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
+    env:
+      # snapcraft export-login --snaps checkson --channels stable -
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraft_token }}
     steps:
       -
         name: Checkout
@@ -24,9 +27,6 @@ jobs:
       -
         name: Snapcraft login
         uses: samuelmeuli/action-snapcraft@v2
-        env:
-          # snapcraft export-login --snaps checkson --channels stable -
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraft_token }}
 
       -
         name: Run GoReleaser
