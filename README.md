@@ -18,6 +18,12 @@ Then:
 sudo apt install ./checkson-cli_1.0.2_linux_amd64.deb
 ```
 
+### Snap
+
+```
+sudo snap install checkson
+```
+
 ### Manual
 
 Download the newest .tar.gz file for your architecture from the [releases page](https://github.com/checkson-io/checkson-cli/releases).
