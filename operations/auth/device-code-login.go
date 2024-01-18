@@ -58,11 +58,12 @@ func DeviceCodeLogin(devMode bool) error {
 		output.PrintStrings("Could not open browser, copy and paste the above URL")
 	}
 
-	for i := 0; i < 20; i++ {
+	for i := 0; i < 60; i++ {
 		time.Sleep(1 * time.Second)
 		deviceCodeCreationResult := checkDeviceCodeStatus(devMode, deviceCodeCreationResult.DeviceCode)
 		if deviceCodeCreationResult.Confirmed {
 			output.Debugf("Device code has been confirmed, login succeeded")
+			output.PrintStrings("Login succeeded")
 
 			firebaseAuthToken, exchangeErr := exchangeCustomAuthTokenForFirebaseToken(deviceCodeCreationResult.AuthToken)
 			if exchangeErr != nil {
