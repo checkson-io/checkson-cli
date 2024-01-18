@@ -15,7 +15,7 @@ Download the newest .deb package for your architecture from the [releases page](
 Then:
 
 ```
-sudo apt install ./checkson-cli_1.0.2_linux_amd64.deb
+sudo apt install ./checkson-cli_1.0.16_linux_amd64.deb
 ```
 
 ### Snap
@@ -31,7 +31,7 @@ Download the newest .tar.gz file for your architecture from the [releases page](
 Then:
 
 ```bash
-tar xvzf checkson-cli_1.0.2_linux_amd64.tar.gz -C /tmp
+tar xvzf checkson-cli_1.0.16_linux_amd64.tar.gz -C /tmp
 sudo mv /tmp/checkson /usr/local/bin
 ```
 
@@ -87,6 +87,6 @@ This command line tool is partly based on [kafkactl](https://github.com/devicein
 In order to release a new version, do the following:
 
 ```
-git tag -a v1.0.2 -m "v1.0.2"
-git push origin v1.0.2
+git tag -a v1.0.16 -m "v1.0.16"
+git push origin v1.0.16
 ```
