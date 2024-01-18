@@ -32,7 +32,7 @@ func newCreateCheckCmd() *cobra.Command {
 	}
 
 	cmdCreateCheck.Flags().StringVarP(&flags.WebHookUrl, "webhook-url", "w", "", "The webhook to call when the status of the check changes")
-	cmdCreateCheck.Flags().StringVarP(&flags.WebHookUrl, "email", "m", "", "The email address to inform when the status of the check changes")
+	cmdCreateCheck.Flags().StringVarP(&flags.EmailAddress, "email", "m", "", "The email address to inform when the status of the check changes")
 	cmdCreateCheck.Flags().StringVarP(&flags.DockerImage, "docker-image", "i", "", "The Docker image to execute")
 	cmdCreateCheck.Flags().Int16VarP(&flags.CheckIntervalInMinutes, "check-interval", "d", 10, "The check interval in minutes")
 	cmdCreateCheck.Flags().Int16VarP(&flags.FailureThreshold, "failure-threshold", "t", 1, "The number of consecutive failed runs until the check is considered critical")
