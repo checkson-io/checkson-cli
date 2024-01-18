@@ -22,8 +22,7 @@ fi
 if [ "$ARCH" == "$TARGET" ]; then
   echo "generating completions... ${BIN_PATH}"
 
-  echo "" > /tmp/empty.yaml
-  ${BIN_PATH} completion bash > ${SCRIPT_PATH}/checkson-completion.bash --config-file=/tmp/empty.yaml
+  ${BIN_PATH} completion bash > ${SCRIPT_PATH}/checkson-completion.bash
 else
   echo "not generating: $ARCH $TARGET"
 fi
