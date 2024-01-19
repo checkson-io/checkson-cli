@@ -60,7 +60,7 @@ This creates a new check that checks a website for SSL/TLS errors and sends
 an email if a problem is found:
 
 ```bash
-checkson-cli create new-check \
+checkson create new-check \
   --docker-image ghcr.io/checkson-io/checkson-testssl-check:main \
   --env URL=https://yourwebsite.com \
   --email me@example.com
@@ -71,7 +71,7 @@ checkson-cli create new-check \
 This shows details of the given check:
 
 ```bash
-checkson-cli show new-check
+checkson show new-check
 ```
 
 ## Origin
