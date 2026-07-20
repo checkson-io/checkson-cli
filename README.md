@@ -80,7 +80,7 @@ This command line tool is partly based on [kafkactl](https://github.com/devicein
 
 ## Development
 
-* Install [golangcli-lint](https://golangci-lint.run/usage/install/#local-installation)
+* Install [golangci-lint](https://golangci-lint.run/usage/install/#local-installation)
 
 ## Releasing
 
