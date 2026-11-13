@@ -32,7 +32,7 @@ func CreateCheck(check Check, authToken string, devMode bool) error {
 	if err1 != nil {
 		return fmt.Errorf("problem performing request: %w", err1)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	return handleRestResponse("Check", resp)
 }
@@ -51,7 +51,7 @@ func DeleteCheck(checkName string, authToken string, devMode bool) error {
 	if err1 != nil {
 		return fmt.Errorf("problem performing request: %w", err1)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	return handleRestResponse("Check", resp)
 }
@@ -70,7 +70,7 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 	if err2 != nil {
 		return nil, fmt.Errorf("problem performing request: %w", err2)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	err3 := handleRestResponse("Checks", resp)
 	if err3 != nil {
@@ -111,7 +111,7 @@ func ListRuns(authToken string, checkName string, devMode bool) ([]Run, error) {
 	if err2 != nil {
 		return nil, fmt.Errorf("problem performing request: %w", err2)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	err3 := handleRestResponse("Runs", resp)
 	if err3 != nil {
@@ -146,7 +146,7 @@ func GetLog(checkName string, runId string, authToken string, devMode bool) (str
 	if err2 != nil {
 		return "", err2
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	err3 := handleRestResponse("Run", resp)
 	if err3 != nil {
@@ -175,7 +175,7 @@ func GetCheck(checkName string, authToken string, devMode bool) (*Check, error) 
 		return nil, fmt.Errorf("problem performing request: %w", err1)
 	}
 
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	err2 := handleRestResponse("Check", resp)
 	if err2 != nil {

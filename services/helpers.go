@@ -19,20 +19,21 @@ func getApiUrl(devMode bool, path string) string {
 
 func handleRestResponse(entityName string, resp *http.Response) error {
 
-	if resp.StatusCode == 200 {
+	switch resp.StatusCode {
+	case http.StatusOK:
 		return nil
-	} else if resp.StatusCode == 401 {
+	case http.StatusUnauthorized:
 		return errors.New("you are not logged in, please login using 'checkson login'")
-	} else if resp.StatusCode == 400 {
+	case http.StatusBadRequest:
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			return errors.New("validation error: Cannot read response")
 		}
 		return errors.New("validation error: " + string(body[:]))
-	} else if resp.StatusCode == 404 {
-		return fmt.Errorf("%s not found\n", entityName)
-	} else {
-		return fmt.Errorf("unexpected response: %s\n", resp.Status)
+	case http.StatusNotFound:
+		return fmt.Errorf("%s not found", entityName)
+	default:
+		return fmt.Errorf("unexpected response: %s", resp.Status)
 	}
 }
 
