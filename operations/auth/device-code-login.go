@@ -33,7 +33,8 @@ func DeviceCodeLogin(devMode bool) error {
 		panic(err)
 	}
 
-	defer resp.Body.Close()
+	// The response is read below; closing a read-only body has no recoverable error.
+	defer func() { _ = resp.Body.Close() }()
 	output.Debugf("Response status:", resp.Status)
 
 	if resp.StatusCode != 200 {
@@ -94,7 +95,8 @@ func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResu
 	if err != nil {
 		panic(err)
 	}
-	defer resp.Body.Close()
+	// The response is read below; closing a read-only body has no recoverable error.
+	defer func() { _ = resp.Body.Close() }()
 	output.Debugf("Response status:", resp.Status)
 
 	body, readErr := ioutil.ReadAll(resp.Body)

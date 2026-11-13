@@ -38,7 +38,7 @@ func exchangeCustomAuthTokenForFirebaseToken(customAuthToken string) (string, er
 	if err != nil {
 		panic(err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	output.Debugf("Response status: %s", resp.Status)
 
 	body, readErr := ioutil.ReadAll(resp.Body)

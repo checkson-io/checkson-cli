@@ -1,0 +1,9 @@
+version: "2"
+
+linters:
+  settings:
+    govet:
+      disable:
+        # Go 1.27's inline suggestions cannot apply to this Go 1.14 module.
+        # Keep other vet checks enabled until the module's Go version is raised.
+        - inline

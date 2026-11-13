@@ -22,7 +22,8 @@ func PersonalAccessTokenLogin(personalAccessToken string) error {
 	if err != nil {
 		panic(err)
 	}
-	defer resp.Body.Close()
+	// The response is read below; closing a read-only body has no recoverable error.
+	defer func() { _ = resp.Body.Close() }()
 	output.Debugf("Response status: %s", resp.Status)
 
 	body, readErr := ioutil.ReadAll(resp.Body)

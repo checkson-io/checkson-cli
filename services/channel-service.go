@@ -31,7 +31,7 @@ func CreateChannel(channel NotificationChannel, authToken string, devMode bool) 
 	if err1 != nil {
 		return fmt.Errorf("problem performing request: %w", err1)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	return handleRestResponse("Notification channel", resp)
 }
@@ -51,7 +51,7 @@ func GetChannel(channelName string, authToken string, devMode bool) (*Notificati
 	if err1 != nil {
 		return nil, fmt.Errorf("problem performing request: %w", err1)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	err2 := handleRestResponse("Notification channel", resp)
 	if err2 != nil {
@@ -87,7 +87,7 @@ func ListChannels(authToken string, devMode bool) ([]NotificationChannel, error)
 	if err1 != nil {
 		return nil, fmt.Errorf("problem performing request: %w", err1)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	err2 := handleRestResponse("Notification channel", resp)
 	if err2 != nil {
@@ -123,7 +123,7 @@ func DeleteChannel(channelName string, authToken string, devMode bool) error {
 	if err1 != nil {
 		return fmt.Errorf("problem performing request: %w", err1)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	return handleRestResponse("Notification channel", resp)
 }
