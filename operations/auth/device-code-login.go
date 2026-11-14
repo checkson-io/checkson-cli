@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/browser"
 	"github.com/pkg/errors"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"time"
@@ -41,7 +41,7 @@ func DeviceCodeLogin(devMode bool) error {
 		return errors.New("Could not create device code")
 	}
 
-	body, err1 := ioutil.ReadAll(resp.Body)
+	body, err1 := io.ReadAll(resp.Body)
 	if err1 != nil {
 		panic(err1)
 	}
@@ -99,7 +99,7 @@ func checkDeviceCodeStatus(devMode bool, deviceCode string) DeviceCodeStatusResu
 	defer func() { _ = resp.Body.Close() }()
 	output.Debugf("Response status:", resp.Status)
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		panic(readErr)
 	}

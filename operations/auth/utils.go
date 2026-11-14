@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/stefan-hudelmaier/checkson-cli/config"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -41,7 +41,7 @@ func exchangeCustomAuthTokenForFirebaseToken(customAuthToken string) (string, er
 	defer func() { _ = resp.Body.Close() }()
 	output.Debugf("Response status: %s", resp.Status)
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		panic(readErr)
 	}

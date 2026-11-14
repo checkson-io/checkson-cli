@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -25,7 +25,7 @@ func handleRestResponse(entityName string, resp *http.Response) error {
 	case http.StatusUnauthorized:
 		return errors.New("you are not logged in, please login using 'checkson login'")
 	case http.StatusBadRequest:
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return errors.New("validation error: Cannot read response")
 		}

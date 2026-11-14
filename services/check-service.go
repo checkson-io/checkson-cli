@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -77,7 +77,7 @@ func ListChecks(authToken string, devMode bool) ([]Check, error) {
 		return nil, err3
 	}
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		panic(readErr)
 	}
@@ -118,7 +118,7 @@ func ListRuns(authToken string, checkName string, devMode bool) ([]Run, error) {
 		return nil, err3
 	}
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		return nil, errors.New("cannot parse result")
 	}
@@ -153,7 +153,7 @@ func GetLog(checkName string, runId string, authToken string, devMode bool) (str
 		return "", err3
 	}
 
-	body, err4 := ioutil.ReadAll(resp.Body)
+	body, err4 := io.ReadAll(resp.Body)
 	if err4 != nil {
 		return "", err4
 	}
@@ -182,7 +182,7 @@ func GetCheck(checkName string, authToken string, devMode bool) (*Check, error) 
 		return nil, err2
 	}
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		return nil, readErr
 	}

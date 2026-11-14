@@ -2,8 +2,8 @@ package operations
 
 import (
 	"errors"
-	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"os"
 )
@@ -31,15 +31,5 @@ func (operation *ListChannelsOperation) ListChannelsOperation(flags ListChannels
 		data = append(data, []string{channel.Name, channel.Type})
 	}
 
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Name", "Type"})
-
-	for _, v := range data {
-		table.Append(v)
-	}
-	table.SetBorder(false)
-	table.SetHeaderLine(true)
-	table.Render()
-
-	return nil
+	return output.RenderTable(os.Stdout, []string{"Name", "Type"}, data)
 }

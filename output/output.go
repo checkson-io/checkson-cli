@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 )
 
-var DebugLogger StdLogger = log.New(ioutil.Discard, "[checkson] ", log.LstdFlags)
-var TestLogger StdLogger = log.New(ioutil.Discard, "[test    ] ", log.LstdFlags)
+var DebugLogger StdLogger = log.New(io.Discard, "[checkson] ", log.LstdFlags)
+var TestLogger StdLogger = log.New(io.Discard, "[test    ] ", log.LstdFlags)
 
 // StdLogger is used to log error messages.
 type StdLogger interface {

@@ -3,8 +3,8 @@ package operations
 import (
 	"errors"
 	"fmt"
-	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"os"
 )
@@ -38,15 +38,5 @@ func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 		data = append(data, []string{statusChar, check.Name, check.LastStatusChange, recentFailures})
 	}
 
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Status", "Name", "Since", "Recent failures"})
-
-	for _, v := range data {
-		table.Append(v)
-	}
-	table.SetBorder(false)
-	table.SetHeaderLine(true)
-	table.Render()
-
-	return nil
+	return output.RenderTable(os.Stdout, []string{"Status", "Name", "Since", "Recent failures"}, data)
 }
