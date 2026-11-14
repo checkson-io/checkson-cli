@@ -80,6 +80,7 @@ This command line tool is partly based on [kafkactl](https://github.com/devicein
 
 ## Development
 
+* Install Go 1.26 or later (CI uses Go 1.27.4).
 * Install [golangci-lint](https://golangci-lint.run/usage/install/#local-installation)
 
 ## Releasing

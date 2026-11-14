@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -58,7 +58,7 @@ func GetChannel(channelName string, authToken string, devMode bool) (*Notificati
 		return nil, err2
 	}
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		return nil, readErr
 	}
@@ -94,7 +94,7 @@ func ListChannels(authToken string, devMode bool) ([]NotificationChannel, error)
 		return nil, err2
 	}
 
-	body, readErr := ioutil.ReadAll(resp.Body)
+	body, readErr := io.ReadAll(resp.Body)
 	if readErr != nil {
 		return nil, readErr
 	}

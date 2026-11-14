@@ -2,8 +2,8 @@ package operations
 
 import (
 	"fmt"
-	"github.com/olekukonko/tablewriter"
 	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
+	"github.com/stefan-hudelmaier/checkson-cli/output"
 	"github.com/stefan-hudelmaier/checkson-cli/services"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -39,15 +39,5 @@ func (operation *ListRunsOperation) ListRunsOperation(checkName string, flags Li
 		data = append(data, []string{run.CheckName, run.Id, run.StartTime, run.EndTime, strconv.Itoa(run.DurationInSeconds), successString})
 	}
 
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Check", "Id", "Start Time", "End Time", "Duration (s)", "Success"})
-
-	for _, v := range data {
-		table.Append(v)
-	}
-	table.SetBorder(false)
-	table.SetHeaderLine(true)
-	table.Render()
-
-	return nil
+	return output.RenderTable(os.Stdout, []string{"Check", "Id", "Start Time", "End Time", "Duration (s)", "Success"}, data)
 }
