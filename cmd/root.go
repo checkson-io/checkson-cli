@@ -25,6 +25,7 @@ func NewChecksonCommand(streams output.IOStreams) *cobra.Command {
 	rootCmd.AddCommand(newLogoutCmd())
 	rootCmd.AddCommand(newLogsCmd())
 	rootCmd.AddCommand(newCreateCheckCmd())
+	rootCmd.AddCommand(newEditCheckCmd())
 	rootCmd.AddCommand(newDeleteCheckCmd())
 	rootCmd.AddCommand(newShowCheckCmd())
 	rootCmd.AddCommand(newChannelCmd())

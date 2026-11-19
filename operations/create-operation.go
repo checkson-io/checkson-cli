@@ -29,6 +29,10 @@ func (operation *CreateCheckOperation) CreateCheckOperation(checkName string, fl
 		return errors.New("you are not logged in. Login with: 'checkson login'")
 	}
 
+	if err := requireCheckExistence(checkName, authToken, flags.DevMode, false); err != nil {
+		return err
+	}
+
 	notificationChannels := flags.NotificationChannels
 	if notificationChannels == nil {
 		notificationChannels = make([]string, 0)

@@ -66,6 +66,33 @@ checkson create new-check \
   --email me@example.com
 ```
 
+### Edit a check
+
+`create` fails if the check already exists. To replace an existing check's
+configuration, supply every writable property in a JSON file:
+
+```json
+{
+  "dockerImage": "ghcr.io/checkson-io/checkson-testssl-check:main",
+  "enabled": true,
+  "dockerCredentials": null,
+  "checkIntervalInMinutes": 10,
+  "environment": {"URL": "https://yourwebsite.com"},
+  "description": "",
+  "failureThreshold": 1,
+  "notificationChannels": []
+}
+```
+
+```bash
+checkson edit new-check --file check.json
+```
+
+All fields are required; omitted properties are rejected. This replaces the
+configuration without merging existing settings. Use `null` for unused Docker
+credentials, `{}` for no environment variables, and `[]` for no notification
+channels. Private images require a credentials object with `username` and `password`.
+
 ### Show check details
 
 This shows details of the given check:
