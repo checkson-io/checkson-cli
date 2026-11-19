@@ -31,6 +31,7 @@ func NewChecksonCommand(streams output.IOStreams) *cobra.Command {
 
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "V", false, "verbose output")
 	rootCmd.PersistentFlags().Bool("dev-mode", false, "enable dev mode, communicating to local services")
+	registerResourceCompletions(rootCmd)
 
 	output.IoStreams = streams
 	rootCmd.SetOut(streams.Out)
