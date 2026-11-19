@@ -39,5 +39,5 @@ func (operation *ListRunsOperation) ListRunsOperation(checkName string, flags Li
 		data = append(data, []string{run.CheckName, run.Id, run.StartTime, run.EndTime, strconv.Itoa(run.DurationInSeconds), successString})
 	}
 
-	return output.RenderTable(os.Stdout, []string{"Check", "Id", "Start Time", "End Time", "Duration (s)", "Success"}, data)
+	return output.RenderTable(os.Stdout, []string{"CHECK", "ID", "START TIME", "END TIME", "DURATION (s)", "SUCCESS"}, data)
 }

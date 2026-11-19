@@ -38,5 +38,5 @@ func (operation *ListOperation) ListOperation(flags ListOperationFlags) error {
 		data = append(data, []string{statusChar, check.Name, check.LastStatusChange, recentFailures})
 	}
 
-	return output.RenderTable(os.Stdout, []string{"Status", "Name", "Since", "Recent failures"}, data)
+	return output.RenderTable(os.Stdout, []string{"STATUS", "NAME", "SINCE", "FAILURES / THRESH"}, data)
 }

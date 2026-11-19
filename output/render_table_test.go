@@ -9,11 +9,16 @@ import (
 func TestRenderTable(t *testing.T) {
 	for _, rows := range [][][]string{
 		nil,
-		{{"✓", "überwachung", "0 / 3"}, {"✖", "東京", "2 / 3"}},
+		{{"✓", "überwachung", "0 / 3", "1"}, {"✖", "東京", "2 / 3", "2"}},
 	} {
 		var out bytes.Buffer
-		if err := RenderTable(&out, []string{"Status", "Name", "Recent failures"}, rows); err != nil {
+		if err := RenderTable(&out, []string{"STATUS", "NAME", "FAILURES / THRESH", "DURATION (s)"}, rows); err != nil {
 			t.Fatal(err)
+		}
+		for _, header := range []string{"FAILURES / THRESH", "DURATION (s)"} {
+			if !strings.Contains(out.String(), header) {
+				t.Fatalf("missing exact header %q: %q", header, out.String())
+			}
 		}
 		lines := strings.Split(strings.TrimSpace(out.String()), "\n")
 		if !strings.Contains(strings.ToUpper(lines[0]), "STATUS") || !strings.Contains(strings.ToUpper(lines[0]), "NAME") {

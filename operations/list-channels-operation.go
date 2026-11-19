@@ -31,5 +31,5 @@ func (operation *ListChannelsOperation) ListChannelsOperation(flags ListChannels
 		data = append(data, []string{channel.Name, channel.Type})
 	}
 
-	return output.RenderTable(os.Stdout, []string{"Name", "Type"}, data)
+	return output.RenderTable(os.Stdout, []string{"NAME", "TYPE"}, data)
 }
