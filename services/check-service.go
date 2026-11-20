@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
+	"github.com/checkson-io/checkson-cli/output"
 	"io"
 	"net/http"
 )

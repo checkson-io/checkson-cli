@@ -3,9 +3,9 @@ package operations
 import (
 	"errors"
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"github.com/stefan-hudelmaier/checkson-cli/services"
+	"github.com/checkson-io/checkson-cli/operations/auth"
+	"github.com/checkson-io/checkson-cli/output"
+	"github.com/checkson-io/checkson-cli/services"
 	"os"
 )
 import "github.com/TwiN/go-color"

@@ -1,8 +1,8 @@
 package cmd
 
 import (
+	"github.com/checkson-io/checkson-cli/operations"
 	"github.com/spf13/cobra"
-	"github.com/stefan-hudelmaier/checkson-cli/operations"
 )
 
 func newEditCheckCmd() *cobra.Command {

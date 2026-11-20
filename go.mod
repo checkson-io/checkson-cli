@@ -1,4 +1,4 @@
-module github.com/stefan-hudelmaier/checkson-cli
+module github.com/checkson-io/checkson-cli
 
 require (
 	github.com/TwiN/go-color v1.4.1
