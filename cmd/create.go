@@ -7,7 +7,7 @@ import (
 )
 
 const createDesc = `
-Create check
+Create a new check. Fails if the check already exists.
 `
 
 func newCreateCheckCmd() *cobra.Command {
@@ -26,7 +26,7 @@ func newCreateCheckCmd() *cobra.Command {
 			if err := (&operations.CreateCheckOperation{}).CreateCheckOperation(args[0], flags); err != nil {
 				output.Fail(err)
 			} else {
-				output.PrintStrings("Check created/updated")
+				output.PrintStrings("Check created")
 			}
 		},
 	}

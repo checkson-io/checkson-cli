@@ -11,6 +11,14 @@ import (
 )
 
 func CreateCheck(check Check, authToken string, devMode bool) error {
+	return putCheck(check.Name, check, authToken, devMode)
+}
+
+func ReplaceCheck(name string, config CheckConfiguration, authToken string, devMode bool) error {
+	return putCheck(name, config, authToken, devMode)
+}
+
+func putCheck(name string, check interface{}, authToken string, devMode bool) error {
 
 	client := &http.Client{}
 
@@ -21,7 +29,7 @@ func CreateCheck(check Check, authToken string, devMode bool) error {
 	}
 
 	url := getApiUrl(devMode, "api/checks/")
-	req, err := http.NewRequest("PUT", url+check.Name, bytes.NewBuffer(jsonBytes))
+	req, err := http.NewRequest("PUT", url+name, bytes.NewBuffer(jsonBytes))
 
 	if err != nil {
 		return fmt.Errorf("problem preparing request: %w", err)
