@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/checkson-io/checkson-cli/operations/auth"
+	"github.com/checkson-io/checkson-cli/services"
 	"github.com/spf13/cobra"
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/services"
 )
 
 func resourceCompletion(channels, flag bool) func(*cobra.Command, []string, string) ([]string, cobra.ShellCompDirective) {

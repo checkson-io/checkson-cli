@@ -2,8 +2,8 @@ package operations
 
 import (
 	"errors"
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/services"
+	"github.com/checkson-io/checkson-cli/operations/auth"
+	"github.com/checkson-io/checkson-cli/services"
 )
 
 // TODO: Update the flags, add notification channel

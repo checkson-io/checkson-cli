@@ -2,9 +2,9 @@ package operations
 
 import (
 	"fmt"
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
-	"github.com/stefan-hudelmaier/checkson-cli/services"
+	"github.com/checkson-io/checkson-cli/operations/auth"
+	"github.com/checkson-io/checkson-cli/output"
+	"github.com/checkson-io/checkson-cli/services"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 	"os"

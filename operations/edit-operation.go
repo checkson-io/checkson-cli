@@ -7,8 +7,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/services"
+	"github.com/checkson-io/checkson-cli/operations/auth"
+	"github.com/checkson-io/checkson-cli/services"
 )
 
 func requireCheckExistence(name, token string, devMode, wantExists bool) error {
