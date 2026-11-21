@@ -6,7 +6,7 @@ export CGO_ENABLED=0
 export GOOS=linux
 export GO111MODULE=on
 
-project=github.com/stefan-hudelmaier/checkson-cli
+project=github.com/checkson-io/checkson-cli
 ld_flags := "-X $(project)/cmd.Version=$(VERSION) -X $(project)/cmd.GitCommit=$(COMMIT_SHA) -X $(project)/cmd.BuildTime=$(BUILD_TS)"
 
 FILES    := $(shell find . -name '*.go' -type f -not -name '*.pb.go' -not -name '*_generated.go' -not -name '*_test.go')

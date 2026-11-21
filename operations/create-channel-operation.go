@@ -1,9 +1,9 @@
 package operations
 
 import (
+	"github.com/checkson-io/checkson-cli/operations/auth"
+	"github.com/checkson-io/checkson-cli/services"
 	"github.com/pkg/errors"
-	"github.com/stefan-hudelmaier/checkson-cli/operations/auth"
-	"github.com/stefan-hudelmaier/checkson-cli/services"
 )
 
 type CreateChannelFlags struct {

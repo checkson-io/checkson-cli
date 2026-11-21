@@ -1,9 +1,9 @@
 package cmd
 
 import (
+	"github.com/checkson-io/checkson-cli/operations"
+	"github.com/checkson-io/checkson-cli/output"
 	"github.com/spf13/cobra"
-	"github.com/stefan-hudelmaier/checkson-cli/operations"
-	"github.com/stefan-hudelmaier/checkson-cli/output"
 )
 
 const logoutDesc = `
